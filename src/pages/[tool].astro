@@ -1,0 +1,15 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// The English tool pages: /cockpit-cronjobs/, /stellwerk/, …
+import { getCollection } from "astro:content";
+import ToolPage from "../components/ToolPage.astro";
+import { related } from "../data/related";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("tools", (e) => e.data.lang === "en");
+  return entries.map((entry) => ({ params: { tool: entry.data.slug }, props: { entry, others: entries } }));
+}
+const { entry, others } = Astro.props;
+---
+
+<ToolPage entry={entry} related={related(entry.data.slug, others)} />

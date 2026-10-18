@@ -1,0 +1,193 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// The start page: the brand, the projects, the package repository in one minute, the values.
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import ToolCard from "./ToolCard.astro";
+import CopyBlock from "./CopyBlock.astro";
+import { TOOLS } from "../data/tools";
+import { SITE } from "../data/routes.mjs";
+import type { Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const entries = await getCollection("tools", (e) => e.data.lang === lang);
+const bySlug = Object.fromEntries(entries.map((e) => [e.data.slug, e]));
+
+const text = {
+  en: {
+    title: "Azentrius – open-source tools for self-hosters",
+    description:
+      "Privacy-first open-source software on European infrastructure: Cockpit add-ons for cron and Docker updates, a desk display for Claude Code, and more.",
+    eyebrow: "Digital sovereignty",
+    h1: "Software you own",
+    lead: "Azentrius builds privacy-first software on European infrastructure: add-ons for Cockpit, a desk display for Claude Code, an Android voice app and a theme for Home Assistant. No external control planes, no SaaS dependencies.",
+    toProjects: "View projects",
+    toPackages: "Set up the package repository",
+    facts: [
+      ["EU", "Infrastructure"],
+      ["100 %", "Self-hosted"],
+      ["GDPR", "compliant"],
+    ],
+    projectsEyebrow: "Projects",
+    projectsTitle: "Current projects",
+    allProjects: "All projects compared",
+    installEyebrow: "Package repository",
+    installTitle: "Installed in a minute",
+    installText:
+      "Set up the Azentrius package repository once. Cockpit then lists the add-ons under Applications, ready to install, and your system's updates keep them current. Every package was built by the release workflow of its own repository; the repository checks that before it takes one.",
+    debian: "Debian and Ubuntu",
+    fedora: "Fedora and RHEL",
+    installMore: "Signing key, fingerprint and how packages are checked",
+    valuesEyebrow: "What we stand for",
+    valuesTitle: "Why Azentrius",
+    values: [
+      ["Privacy first", "Privacy is not a feature, it is the foundation of every decision."],
+      ["Sovereignty", "Full control over data, infrastructure and code."],
+      ["European roots", "European infrastructure, European values, GDPR by default."],
+      ["Openness", "Open architectures, auditable code, no black boxes."],
+    ],
+    by: "Azentrius is a project by",
+  },
+  de: {
+    title: "Azentrius – Open-Source-Werkzeuge für Self-Hoster",
+    description:
+      "Datenschutzorientierte Open-Source-Software auf europäischer Infrastruktur: Cockpit-Add-ons für Cron und Docker-Updates, ein Tischdisplay für Claude Code.",
+    eyebrow: "Digitale Souveränität",
+    h1: "Software, die dir gehört",
+    lead: "Azentrius baut datenschutzorientierte Software auf europäischer Infrastruktur: Erweiterungen für Cockpit, ein Tischdisplay für Claude Code, eine Sprach-App für Android und ein Theme für Home Assistant. Keine fremden Kontrollinstanzen, keine Abhängigkeit von SaaS.",
+    toProjects: "Projekte ansehen",
+    toPackages: "Paketquelle einrichten",
+    facts: [
+      ["EU", "Infrastruktur"],
+      ["100 %", "selbst gehostet"],
+      ["DSGVO", "konform"],
+    ],
+    projectsEyebrow: "Projekte",
+    projectsTitle: "Aktuelle Projekte",
+    allProjects: "Alle Projekte im Vergleich",
+    installEyebrow: "Paketquelle",
+    installTitle: "In einer Minute installiert",
+    installText:
+      "Richte die Azentrius-Paketquelle einmal ein. Danach zeigt Cockpit die Erweiterungen unter Anwendungen zur Installation an, und die Updates deines Systems halten sie aktuell. Jedes Paket hat der Release-Workflow seines eigenen Repositorys gebaut; die Paketquelle prüft das, bevor sie es aufnimmt.",
+    debian: "Debian und Ubuntu",
+    fedora: "Fedora und RHEL",
+    installMore: "Signaturschlüssel, Fingerabdruck und wie Pakete geprüft werden",
+    valuesEyebrow: "Wofür wir stehen",
+    valuesTitle: "Warum Azentrius",
+    values: [
+      ["Datenschutz zuerst", "Datenschutz ist kein Feature, sondern die Grundlage jeder Entscheidung."],
+      ["Souveränität", "Volle Kontrolle über Daten, Infrastruktur und Code."],
+      ["Europäische Wurzeln", "Europäische Infrastruktur, europäische Werte, DSGVO von Anfang an."],
+      ["Offenheit", "Offene Architekturen, prüfbarer Code, keine Blackboxes."],
+    ],
+    by: "Azentrius ist ein Projekt von",
+  },
+}[lang];
+
+const debian = `curl -fsSLO https://packages.azentrius.com/azentrius-repository.deb
+sudo apt install ./azentrius-repository.deb
+sudo apt update`;
+const fedora = `sudo rpm --import https://packages.azentrius.com/azentrius.asc
+sudo dnf install https://packages.azentrius.com/azentrius-repository.rpm`;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Azentrius",
+    url: SITE,
+    logo: new URL("/favicon.svg", SITE).href,
+    email: "support@azentrius.com",
+    founder: { "@type": "Person", name: "Stefan Popp", url: "https://stefanpopp.com/" },
+    sameAs: ["https://github.com/Azentrius"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Azentrius",
+    url: SITE,
+    inLanguage: ["en", "de"],
+  },
+];
+const prefix = lang === "en" ? "" : "/de";
+---
+
+<Base lang={lang} page="home" title={text.title} description={text.description} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="wrap">
+      <p class="az-eyebrow">{text.eyebrow}</p>
+      <h1 class="hero-title">{text.h1}<span class="dot">.</span></h1>
+      <p class="lead">{text.lead}</p>
+      <div class="actions">
+        <a class="az-btn az-btn--primary az-btn--lg" href={`${prefix}/projects/`}>{text.toProjects}</a>
+        <a class="az-btn az-btn--secondary az-btn--lg" href="#install">{text.toPackages}</a>
+      </div>
+      <dl class="facts">
+        {
+          text.facts.map(([value, label]) => (
+            <div>
+              <dt class="fact__value">{value}</dt>
+              <dd class="fact__label">{label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="az-eyebrow">{text.projectsEyebrow}</p>
+      <h2 class="section-title">{text.projectsTitle}</h2>
+      <div class="card-grid">
+        {
+          TOOLS.map((tool) => (
+            <ToolCard
+              tool={tool}
+              lang={lang}
+              summary={bySlug[tool.slug].data.summary}
+              platforms={bySlug[tool.slug].data.platforms}
+            />
+          ))
+        }
+      </div>
+      <p class="more-link"><a href={`${prefix}/projects/`}>{text.allProjects} →</a></p>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="install">
+    <div class="wrap split split--wide">
+      <div>
+        <p class="az-eyebrow">{text.installEyebrow}</p>
+        <h2 class="section-title">{text.installTitle}</h2>
+      </div>
+      <div class="prose-plain">
+        <p>{text.installText}</p>
+        <CopyBlock code={debian} lang={lang} name="repository-apt" label={text.debian} />
+        <CopyBlock code={fedora} lang={lang} name="repository-dnf" label={text.fedora} />
+        <p class="more-link"><a href="https://packages.azentrius.com/">{text.installMore} →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="az-eyebrow">{text.valuesEyebrow}</p>
+      <h2 class="section-title">{text.valuesTitle}</h2>
+      <div class="values">
+        {
+          text.values.map(([title, body]) => (
+            <div class="value">
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="sender">{text.by} <a href="https://stefanpopp.com/">Stefan Popp</a>.</p>
+    </div>
+  </section>
+</Base>

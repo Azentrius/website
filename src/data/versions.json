@@ -1,0 +1,19 @@
+{
+  "cockpit-cronjobs": {
+    "version": "2.7.4",
+    "date": "2026-10-18"
+  },
+  "cockpit-image-update-monitor": {
+    "version": "0.19.1",
+    "date": "2026-10-18"
+  },
+  "stellwerk": {
+    "version": "0.5.1",
+    "date": "2026-10-18"
+  },
+  "lautwerk": null,
+  "home-assistant-theme": {
+    "version": "1.0.5",
+    "date": "2026-10-18"
+  }
+}

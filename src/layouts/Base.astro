@@ -1,0 +1,127 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// The frame of every page: head with title, description, canonical, hreflang and social cards;
+// header with word mark, navigation and language switch; footer with the legal links.
+import "../styles/tokens.css";
+import "../styles/theme.css";
+import "../../vendor/design-system/bundle.css";
+import "../styles/site.css";
+import { ROUTES, SITE } from "../data/routes.mjs";
+import { t, type Lang } from "../i18n/ui";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+interface Crumb {
+  name: string;
+  href: string;
+}
+interface Props {
+  lang: Lang;
+  /** Key in ROUTES; gives canonical, hreflang and the language switch. */
+  page?: string;
+  title: string;
+  description: string;
+  noindex?: boolean;
+  jsonLd?: object[];
+  crumbs?: Crumb[];
+  ogType?: "website" | "article";
+}
+
+const { lang, page, title, description, noindex = false, jsonLd = [], crumbs = [], ogType = "website" } = Astro.props;
+const s = t(lang);
+const pair = page ? ROUTES[page] : undefined;
+const canonical = pair ? new URL(pair[lang], SITE).href : undefined;
+const other: Lang = lang === "en" ? "de" : "en";
+const switchHref = pair ? pair[other] : other === "de" ? "/de/" : "/";
+const home = lang === "en" ? "/" : "/de/";
+const year = new Date().getFullYear();
+
+const breadcrumbLd =
+  crumbs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: crumbs.map((crumb, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: crumb.name,
+          item: new URL(crumb.href, SITE).href,
+        })),
+      }
+    : undefined;
+const ld = breadcrumbLd ? [...jsonLd, breadcrumbLd] : jsonLd;
+---
+
+<!doctype html>
+<html lang={lang} data-theme="azentrius">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f2f1ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    {
+      pair && !noindex && (
+        <>
+          <link rel="alternate" hreflang="en" href={new URL(pair.en, SITE).href} />
+          <link rel="alternate" hreflang="de" href={new URL(pair.de, SITE).href} />
+          <link rel="alternate" hreflang="x-default" href={new URL(pair.en, SITE).href} />
+        </>
+      )
+    }
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/DMSans-VF.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/DMSerifDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Azentrius" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content={lang === "en" ? "en_US" : "de_DE"} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {ld.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+    <script
+      defer
+      data-domain="azentrius.com"
+      src="https://analytics.azentrius.com/js/script.outbound-links.tagged-events.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#content">{s.skip}</a>
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <a href={home} class="wordmark" aria-label={s.home}>Azentrius<span class="dot">.</span></a>
+        <nav class="site-nav" aria-label={s.navLabel}>
+          <a href={lang === "en" ? "/projects/" : "/de/projects/"}>{s.projects}</a>
+          <a href={switchHref} hreflang={other} lang={other} aria-label={s.switchLabel}>{s.switchTo}</a>
+        </nav>
+      </div>
+    </header>
+    {crumbs.length > 1 && <Breadcrumbs crumbs={crumbs} label={s.breadcrumb} />}
+    <main id="content">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap site-footer__inner">
+        <a href={home} class="wordmark wordmark--sm" aria-label={s.home}>Azentrius<span class="dot">.</span></a>
+        <nav aria-label={s.footerNav} class="site-footer__nav">
+          <a href={lang === "en" ? "/projects/" : "/de/projects/"}>{s.projects}</a>
+          <a href="https://packages.azentrius.com/">{s.packages}</a>
+          <a href={ROUTES.legal[lang]}>{s.legal}</a>
+          <a href={ROUTES.privacy[lang]}>{s.privacy}</a>
+          <a href="mailto:support@azentrius.com">support@azentrius.com</a>
+        </nav>
+        <slot name="footnotes" />
+        <p class="site-footer__copy">
+          © {year} Azentrius · {s.rights} · {s.footerBy} <a href="https://stefanpopp.com/">Stefan Popp</a>
+        </p>
+      </div>
+    </footer>
+    <script>
+      import "../scripts/site";
+    </script>
+  </body>
+</html>

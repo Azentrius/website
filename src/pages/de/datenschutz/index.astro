@@ -1,0 +1,10 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+import { getEntry } from "astro:content";
+import LegalPage from "../../../components/LegalPage.astro";
+
+const entry = await getEntry("legal", "de/privacy");
+if (!entry) throw new Error("Missing legal page de/privacy");
+---
+
+<LegalPage entry={entry} />

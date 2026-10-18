@@ -1,0 +1,21 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// Commands with a copy button. The button works without anything else on the page; Plausible counts
+// "Command copied" with the block's name.
+import { t, type Lang } from "../i18n/ui";
+
+interface Props {
+  code: string;
+  lang: Lang;
+  name: string;
+  label?: string;
+}
+const { code, lang, name, label } = Astro.props;
+const s = t(lang);
+---
+
+<div class="copy">
+  {label && <p class="copy__label">{label}</p>}
+  <pre><code>{code}</code></pre>
+  <button type="button" class="az-btn az-btn--secondary az-btn--sm copy__button" data-copy data-copy-name={name} data-copied={s.copied} data-failed={s.copyFailed}>{s.copy}</button>
+</div>

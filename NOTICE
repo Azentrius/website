@@ -1,0 +1,31 @@
+azentrius.com
+Copyright 2026 Azentrius
+The code of this website is licensed under the Apache License, Version 2.0. See LICENSE.
+
+Not licensed under the Apache License; all rights reserved:
+
+- The texts of the website (src/content/, and the texts in src/components/ and src/i18n/), including
+  the legal notice and the privacy policy.
+- The Azentrius word mark "Azentrius." and sign (public/favicon.svg), and the signs of the apps
+  (src/assets/icons/). The Apache License grants no rights to trademarks, names or signs
+  (section 6), including those shown in the screenshots.
+
+This project includes third-party material under its own license:
+
+Design tokens and component styles (vendor/design-system/tokens.css, vendor/design-system/bundle.css,
+  and src/styles/tokens.css and src/styles/theme.css generated from them) from the Azentrius Design
+  System, commit in vendor/design-system/COMMIT.
+  Apache License 2.0, see vendor/design-system/LICENSES/Apache-2.0.txt
+
+DM Sans (public/fonts/DMSans-VF.woff2)
+  Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)
+  SIL Open Font License 1.1, see public/fonts/OFL-DM-Sans.txt
+
+DM Serif Display (public/fonts/DMSerifDisplay-Regular.woff2, public/fonts/DMSerifDisplay-Italic.woff2)
+  Copyright 2014 - 2017 Adobe Systems Incorporated (http://www.adobe.com/), with
+  Reserved Font Name 'Source'. Copyright 2019 Google LLC.
+  SIL Open Font License 1.1, see public/fonts/OFL-DM-Serif-Display.txt
+
+Red Hat Mono (public/fonts/RedHatMono-VF.woff2)
+  Copyright 2021 The Red Hat Project Authors (https://github.com/RedHatOfficial/RedHatFont)
+  SIL Open Font License 1.1, see public/fonts/OFL-Red-Hat-Fonts.txt

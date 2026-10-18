@@ -1,0 +1,11 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// A product name as the design system sets it: "Cron Jobs." with the gold dot, or
+// "Image Update Monitor" with the suffix in italics. Screen readers get the plain name.
+interface Props {
+  name: { base: string; suffix?: string; dot?: boolean };
+}
+const { name } = Astro.props;
+---
+
+<span class="product-name">{name.base}{name.suffix && <> <em class="suffix">{name.suffix}</em></>}{name.dot && <span class="dot" aria-hidden="true">.</span>}</span>

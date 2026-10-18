@@ -1,0 +1,24 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+interface Props {
+  crumbs: { name: string; href: string }[];
+  label: string;
+}
+const { crumbs, label } = Astro.props;
+---
+
+<nav class="crumbs wrap" aria-label={label}>
+  <ol>
+    {
+      crumbs.map((crumb, i) =>
+        i < crumbs.length - 1 ? (
+          <li>
+            <a href={crumb.href}>{crumb.name}</a>
+          </li>
+        ) : (
+          <li aria-current="page">{crumb.name}</li>
+        ),
+      )
+    }
+  </ol>
+</nav>

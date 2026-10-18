@@ -1,0 +1,24 @@
+{
+  "name": "azentrius-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The website azentrius.com: project pages for the Azentrius tools, in English and German.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "versions": "node scripts/versions.mjs",
+    "design": "node scripts/design.mjs",
+    "build": "node scripts/versions.mjs && astro build && node scripts/check-dist.mjs",
+    "preview": "astro preview",
+    "check": "node scripts/check-dist.mjs",
+    "pack": "sh scripts/pack.sh"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.4.0"
+  }
+}

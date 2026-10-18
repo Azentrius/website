@@ -1,0 +1,26 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// One page for both languages: the server answers every unknown address with it.
+import Base from "../layouts/Base.astro";
+import { TOOLS } from "../data/tools";
+---
+
+<Base
+  lang="en"
+  title="Page not found | Azentrius"
+  description="This address does not exist on azentrius.com. The projects and their pages are listed below."
+  noindex
+>
+  <section class="notfound">
+    <div class="wrap">
+      <p class="az-eyebrow">404</p>
+      <h1 class="tool-title">This page does not exist<span class="dot">.</span></h1>
+      <p class="lead">Sorry. Perhaps one of these is what you were looking for.</p>
+      <p class="lead" lang="de">Diese Seite gibt es nicht. Vielleicht suchst du eine von diesen.</p>
+      <ul class="link-list">
+        {TOOLS.map((tool) => <li><a href={`/${tool.slug}/`}>{tool.plainName}</a> · <a href={`/de/${tool.slug}/`} lang="de">Deutsch</a></li>)}
+        <li><a href="/projects/">All projects</a> · <a href="/de/projects/" lang="de">Alle Projekte</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>

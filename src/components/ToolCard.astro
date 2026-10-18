@@ -1,0 +1,34 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// A project card: the whole card links to the tool page; GitHub is a way out from there.
+import ProductName from "./ProductName.astro";
+import { type Tool } from "../data/tools";
+import { t, type Lang } from "../i18n/ui";
+import versions from "../data/versions.json";
+
+interface Props {
+  tool: Tool;
+  lang: Lang;
+  summary: string;
+  platforms: string[];
+  headingLevel?: "h2" | "h3";
+}
+const { tool, lang, summary, platforms, headingLevel = "h3" } = Astro.props;
+const s = t(lang);
+const href = lang === "en" ? `/${tool.slug}/` : `/de/${tool.slug}/`;
+const release = (versions as Record<string, { version: string } | null>)[tool.slug];
+const Heading = headingLevel;
+---
+
+<article class="project-card">
+  <Heading class="project-card__title"><a href={href}><ProductName name={tool.name} /></a></Heading>
+  <p class="project-card__text">{summary}</p>
+  <ul class="project-card__labels" aria-label={s.version}>
+    <li class:list={["az-label", tool.status === "prototype" && "az-label--strong"]}>
+      {tool.status === "stable" ? s.statusStable : s.statusPrototype}
+    </li>
+    {platforms.slice(0, 3).map((p) => <li class="az-label">{p}</li>)}
+    {release && <li class="az-label">v{release.version}</li>}
+  </ul>
+  <span class="project-card__more" aria-hidden="true">{s.readMore} →</span>
+</article>

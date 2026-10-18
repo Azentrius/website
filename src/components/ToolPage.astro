@@ -1,0 +1,308 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// One tool page, in either language. Texts from src/content/tools/<lang>/<slug>.md, shared facts
+// from src/data/tools.ts, the version from the latest GitHub release at build time.
+import { render, type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import ProductName from "./ProductName.astro";
+import Shot from "./Shot.astro";
+import { tool as findTool, TOOLS, repoUrl } from "../data/tools";
+import { t } from "../i18n/ui";
+import versions from "../data/versions.json";
+import { SITE } from "../data/routes.mjs";
+import lautwerkIcon from "../assets/icons/lautwerk.svg";
+
+interface Props {
+  entry: CollectionEntry<"tools">;
+  related: CollectionEntry<"tools">[];
+}
+const { entry, related } = Astro.props;
+const d = entry.data;
+const lang = d.lang;
+const s = t(lang);
+const tool = findTool(d.slug);
+const { Content } = await render(entry);
+const release = (versions as Record<string, { version: string; date: string } | null>)[tool.slug];
+const prefix = lang === "en" ? "" : "/de";
+const url = new URL(`${prefix}/${tool.slug}/`, SITE).href;
+
+const crumbs = [
+  { name: "Azentrius", href: lang === "en" ? "/" : "/de/" },
+  { name: s.projects, href: `${prefix}/projects/` },
+  { name: tool.plainName, href: `${prefix}/${tool.slug}/` },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tool.plainName,
+    description: d.description,
+    url,
+    applicationCategory: tool.category === "android" ? "CommunicationApplication" : "DeveloperApplication",
+    operatingSystem: d.platforms.join(", "),
+    ...(release ? { softwareVersion: release.version, datePublished: release.date } : {}),
+    license: `https://spdx.org/licenses/${tool.license}.html`,
+    isAccessibleForFree: true,
+    author: { "@type": "Organization", name: "Azentrius", url: SITE },
+    sameAs: repoUrl(tool),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    name: tool.plainName,
+    codeRepository: repoUrl(tool),
+    license: `https://spdx.org/licenses/${tool.license}.html`,
+    ...(release ? { version: release.version } : {}),
+    author: { "@type": "Organization", name: "Azentrius", url: SITE },
+  },
+];
+
+const further = [
+  { label: s.repository, href: repoUrl(tool) },
+  tool.docs.changelog && { label: s.changelog, href: repoUrl(tool, "CHANGELOG.md") },
+  tool.docs.roadmap && { label: s.roadmap, href: repoUrl(tool, "ROADMAP.md") },
+  tool.docs.security && { label: s.securityPolicy, href: repoUrl(tool, "SECURITY.md") },
+].filter(Boolean) as { label: string; href: string }[];
+// The product mark above the heading, unless the heading already starts with the product's name.
+const showMark = !d.h1.startsWith(tool.plainName);
+// A project without screenshots shows its app icon next to the hero text.
+const showIcon = !tool.hero && tool.slug === "lautwerk";
+---
+
+<Base
+  lang={lang}
+  page={tool.slug}
+  title={d.title}
+  description={d.description}
+  jsonLd={jsonLd}
+  crumbs={crumbs}
+>
+  <section class="hero hero--tool">
+    <div class:list={["wrap", showIcon && "hero__split"]}>
+      <div class="hero__text">
+        <p class="az-eyebrow">{d.eyebrow}</p>
+        {showMark && <p class="tool-mark" aria-hidden="true"><ProductName name={tool.name} /></p>}
+        <h1 class="tool-title">{d.h1}</h1>
+        {d.notice && <p class="notice" role="note">{d.notice}</p>}
+        <p class="lead">{d.lead}</p>
+        <div class="actions">
+          <a class="az-btn az-btn--primary az-btn--lg" href={d.primaryAction.href}>{d.primaryAction.label}</a>
+          <a class="az-btn az-btn--secondary az-btn--lg" href={repoUrl(tool)}>{s.viewOnGitHub}</a>
+        </div>
+        <ul class="facts-inline">
+          <li class:list={["az-label", tool.status === "prototype" && "az-label--strong"]}>
+            {tool.status === "stable" ? s.statusStable : s.statusPrototype}
+          </li>
+          {release && <li class="az-label">{s.version} {release.version}</li>}
+          <li class="az-label">{tool.license}</li>
+          {d.platforms.map((p) => <li class="az-label">{p}</li>)}
+        </ul>
+      </div>
+      {
+        showIcon && (
+          <div class="hero__icon">
+            <Image src={lautwerkIcon} alt={d.alt.icon ?? ""} width={200} height={200} loading="eager" />
+          </div>
+        )
+      }
+    </div>
+    {
+      tool.hero && !tool.heroPair && (
+        <div class="wrap hero__shot">
+          <Shot image={tool.hero.image} dark={tool.hero.dark} alt={d.alt[tool.hero.key] ?? ""} eager />
+        </div>
+      )
+    }
+    {
+      tool.hero && tool.heroPair && tool.hero.dark && (
+        <div class="wrap hero__pair">
+          <figure>
+            <Shot image={tool.hero.image} alt={d.alt.light ?? ""} sizes="(max-width: 1168px) 100vw, 548px" widths={[640, 1100]} eager />
+            <figcaption>{s.lightVariant}</figcaption>
+          </figure>
+          <figure>
+            <Shot image={tool.hero.dark} alt={d.alt.dark ?? ""} sizes="(max-width: 1168px) 100vw, 548px" widths={[640, 1100]} eager />
+            <figcaption>{s.darkVariant}</figcaption>
+          </figure>
+        </div>
+      )
+    }
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="az-eyebrow">{s.problem}</p>
+        <h2 class="section-title">{d.problemTitle ?? s.problem}</h2>
+      </div>
+      <div class="prose-plain">
+        {d.problem.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="az-eyebrow">{s.featuresEyebrow}</p>
+      <h2 class="section-title">{s.features}</h2>
+      <div class="feature-grid">
+        {
+          d.features.map((f) => (
+            <div class="feature">
+              <h3>{f.title}</h3>
+              <p>{f.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    d.explainer && (
+      <section class="section">
+        <div class="wrap">
+          <h2 class="section-title">{d.explainer.title}</h2>
+          {d.explainer.intro && <p class="lead lead--section">{d.explainer.intro}</p>}
+          <div class="az-table-wrap">
+            <table class="az-table explainer">
+              {d.explainer.head && (
+                <thead>
+                  <tr>
+                    <th scope="col">{d.explainer.head[0]}</th>
+                    <th scope="col">{d.explainer.head[1]}</th>
+                  </tr>
+                </thead>
+              )}
+              <tbody>
+                {d.explainer.rows.map(([a, b]) => (
+                  <tr>
+                    <th scope="row">{a}</th>
+                    <td>{b}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.keeps && (
+      <section class="section">
+        <div class="wrap split">
+          <h2 class="section-title">{d.keeps.title}</h2>
+          <div class="prose-plain">
+            <p>{d.keeps.text}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    tool.gallery.length > 0 && (
+      <section class="section section--alt">
+        <div class="wrap">
+          <h2 class="section-title">{s.gallery}</h2>
+          <div class="gallery">
+            {tool.gallery.map((shot) => (
+              <figure>
+                <Shot image={shot.image} dark={shot.dark} alt={d.alt[shot.key] ?? ""} widths={[540, 1080]} sizes="(max-width: 760px) 100vw, 540px" />
+                <figcaption>{d.alt[shot.key]}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="wrap split">
+      <h2 class="section-title">{s.security}</h2>
+      <ul class="dot-list">
+        {d.security.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="install">
+    <div class="wrap split split--wide">
+      <div>
+        <p class="az-eyebrow">{s.install}</p>
+        <h2 class="section-title">{s.installation}</h2>
+        <h3 class="subhead">{s.requirements}</h3>
+        <ul class="dot-list">
+          {d.requirements.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+    <button type="button" hidden data-copy-template data-copy-name={`${tool.slug}-install`} data-copied={s.copied} data-failed={s.copyFailed} class="az-btn az-btn--secondary az-btn--sm copy__button">{s.copy}</button>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">{s.faq}</h2>
+      <div class="faq">
+        {
+          d.faq.map((item) => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    d.compare && (
+      <section class="section section--alt">
+        <div class="wrap split">
+          <h2 class="section-title">{s.compare}</h2>
+          <div class="prose-plain">
+            <p>{d.compare}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2 class="section-title">{s.further}</h2>
+        <ul class="link-list">
+          {further.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2 class="section-title">{s.related}</h2>
+        <ul class="link-list">
+          {
+            related.map((other) => {
+              const otherTool = TOOLS.find((x) => x.slug === other.data.slug)!;
+              return (
+                <li>
+                  <a href={`${prefix}/${other.data.slug}/`}>{otherTool.plainName}</a>
+                  <span class="link-list__note"> – {other.data.summary}</span>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {d.notes.length > 0 && <div slot="footnotes" class="site-footer__notes">{d.notes.map((n) => <p>{n}</p>)}</div>}
+</Base>

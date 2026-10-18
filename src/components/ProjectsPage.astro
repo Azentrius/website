@@ -1,0 +1,133 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// All projects, grouped by where they run, and one table to compare them.
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import ToolCard from "./ToolCard.astro";
+import { TOOLS, CATEGORY_ORDER, repoUrl } from "../data/tools";
+import { t, type Lang } from "../i18n/ui";
+import versions from "../data/versions.json";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const entries = await getCollection("tools", (e) => e.data.lang === lang);
+const bySlug = Object.fromEntries(entries.map((e) => [e.data.slug, e]));
+const release = versions as Record<string, { version: string } | null>;
+
+const text = {
+  en: {
+    title: "Open-source Cockpit add-ons and developer tools | Azentrius",
+    description:
+      "All Azentrius projects: Cockpit add-ons for cron and Docker updates, a desk display for Claude Code, an Android voice app and a Home Assistant theme.",
+    h1: "Projects",
+    lead: "Everything Azentrius makes is open source under Apache-2.0, public on GitHub and runs without anyone else's control plane.",
+    groups: {
+      cockpit: "Cockpit add-ons",
+      desktop: "Desktop",
+      android: "Android",
+      "home-assistant": "Home Assistant",
+    },
+    compareTitle: "At a glance",
+    head: ["Project", "Platform", "Status", "Install", "License"],
+    install: {
+      "cockpit-cronjobs": "Package repository, release",
+      "cockpit-image-update-monitor": "Package repository, release",
+      stellwerk: "Release",
+      lautwerk: "Build from source",
+      "home-assistant-theme": "HACS, release",
+    },
+  },
+  de: {
+    title: "Cockpit-Add-ons und Werkzeuge für Entwickler | Azentrius",
+    description:
+      "Alle Projekte von Azentrius: Cockpit-Add-ons für Cron und Docker-Updates, ein Tischdisplay für Claude Code, eine Sprach-App und ein Home-Assistant-Theme.",
+    h1: "Projekte",
+    lead: "Alles, was Azentrius baut, ist Open Source unter Apache-2.0, öffentlich auf GitHub und läuft ohne fremde Kontrollinstanz.",
+    groups: {
+      cockpit: "Cockpit-Add-ons",
+      desktop: "Desktop",
+      android: "Android",
+      "home-assistant": "Home Assistant",
+    },
+    compareTitle: "Auf einen Blick",
+    head: ["Projekt", "Plattform", "Status", "Installation", "Lizenz"],
+    install: {
+      "cockpit-cronjobs": "Paketquelle, Release",
+      "cockpit-image-update-monitor": "Paketquelle, Release",
+      stellwerk: "Release",
+      lautwerk: "Aus dem Quellcode",
+      "home-assistant-theme": "HACS, Release",
+    },
+  },
+}[lang];
+const prefix = lang === "en" ? "" : "/de";
+const crumbs = [
+  { name: "Azentrius", href: lang === "en" ? "/" : "/de/" },
+  { name: s.projects, href: `${prefix}/projects/` },
+];
+---
+
+<Base lang={lang} page="projects" title={text.title} description={text.description} crumbs={crumbs}>
+  <section class="hero hero--tool">
+    <div class="wrap">
+      <h1 class="tool-title">{text.h1}</h1>
+      <p class="lead">{text.lead}</p>
+      {
+        CATEGORY_ORDER.map((category) => {
+          const tools = TOOLS.filter((x) => x.category === category);
+          return (
+            <>
+              <h2 class="group-title">{text.groups[category]}</h2>
+              <div class="card-grid">
+                {tools.map((tool) => (
+                  <ToolCard
+                    tool={tool}
+                    lang={lang}
+                    summary={bySlug[tool.slug].data.summary}
+                    platforms={bySlug[tool.slug].data.platforms}
+                  />
+                ))}
+              </div>
+            </>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">{text.compareTitle}</h2>
+      <div class="az-table-wrap compare">
+        <table class="az-table">
+          <thead>
+            <tr>{text.head.map((h) => <th scope="col">{h}</th>)}</tr>
+          </thead>
+          <tbody>
+            {
+              TOOLS.map((tool) => (
+                <tr>
+                  <th scope="row">
+                    <a href={`${prefix}/${tool.slug}/`}>{tool.plainName}</a>
+                  </th>
+                  <td>{bySlug[tool.slug].data.platforms.join(", ")}</td>
+                  <td>
+                    {tool.status === "stable" ? s.statusStable : s.statusPrototype}
+                    {release[tool.slug] && ` · v${release[tool.slug]!.version}`}
+                  </td>
+                  <td>{text.install[tool.slug]}</td>
+                  <td>
+                    <a href={repoUrl(tool, "LICENSE")}>{tool.license}</a>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>

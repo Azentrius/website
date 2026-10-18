@@ -1,0 +1,41 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  # Builds the site as the release does and checks it: every page pair, canonical and hreflang, title and
+  # description lengths, no inline scripts or styles, no broken internal links, the sitemap.
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Install from the lockfile
+        run: npm ci
+      - name: Generated styles match the vendored design system
+        run: |
+          npm run design
+          git diff --exit-code -- src/styles/tokens.css src/styles/theme.css \
+            || { echo "::error::Run npm run design and commit the result."; exit 1; }
+      - name: Build and check
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run build
+      - name: Package
+        run: npm run pack
+      - name: Known vulnerabilities in dependencies
+        run: npm audit --omit=dev
+      - name: Changelog has a section for the current version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          node scripts/release-notes.mjs "$version" > /dev/null || { echo "::error::CHANGELOG.md has no section for $version"; exit 1; }
