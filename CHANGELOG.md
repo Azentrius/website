@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.4 – 2026-10-19
 
 - **Privacy texts in German and English:** describe scroll depth and active time, distinguish daily
   visitor identifiers from stored event/session records, explain email enquiries and hosting, and
