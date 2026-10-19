@@ -68,6 +68,39 @@ gh attestation verify azentrius-website-VERSION.tar.gz --repo Azentrius/website
 
 `npm run pack` makes the same archive locally; the same `dist/` gives the same archive.
 
+### Operational facts for the legal text update
+
+The text review of 2026-10-19 corrects the analytics description, email processing, objection rights
+and product claims in both languages.
+
+The operator confirmed that email is hosted exclusively by Hetzner without forwarding to another
+email provider. Both privacy pages now name that processing role. The operator also explicitly
+chose to retain the existing email/postal contact details without adding another contact channel.
+The legal notices are unchanged by that decision; this does not establish compliance with § 5 DDG.
+
+The operator confirmed the server changes on 2026-10-19. Both privacy pages now reflect the
+implementation recorded in the shared operational notes:
+
+- Website and analytics access logs use truncated IP addresses and are retained for at most 14 days.
+- Error and security logs can contain full IP addresses and are retained for at most 14 days.
+  The separate access logs used by fail2ban are retained for at most two days.
+- Plausible event/session records expire after 24 months in the active database. Database backups
+  are retained for up to six months, so deleted records can remain in backups for that period.
+
+This closes the pending confirmation of the logging and retention configuration. The source is the
+operator's confirmation and implementation record; this text update did not rerun the server audit.
+The disclosure concerns the website and analytics service, not every application's logs or data.
+
+The email deletion criteria remain an operational responsibility. The concrete Plausible setup still
+needs assessment under § 25 TDDDG and the GDPR, including scroll depth and active time measurement.
+Cookie-free operation alone does not resolve this question. The existing Art. 6 (1) (f) GDPR basis
+has not been independently approved by this text update.
+
+The review does not change server configuration or publish a release. Its source references are
+[Plausible's data policy](https://plausible.io/data-policy), the
+[DSK guidance on digital services](https://www.datenschutzkonferenz-online.de/media/oh/OH_Digitale_Dienste.pdf)
+and [CJEU C-298/07](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=celex%3A62007CJ0298).
+
 ## License
 
 The code is licensed under the [Apache License 2.0](LICENSE). The texts of the website and the

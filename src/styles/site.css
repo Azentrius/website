@@ -288,7 +288,7 @@ pre code { font-size: inherit; }
 /* Legal pages */
 .legal { padding-block: 72px var(--space-section); }
 .legal .wrap { max-width: calc(760px + 2 * var(--space-lg)); }
-.legal h1 { font-family: var(--font-brand); font-size: clamp(36px, 5vw, 52px); line-height: 1.08; margin-top: var(--space-md); }
+.legal h1 { font-family: var(--font-brand); font-size: clamp(36px, 5vw, 52px); line-height: 1.08; margin-top: var(--space-md); hyphens: auto; overflow-wrap: anywhere; }
 .legal .subtitle { color: var(--text-subtle); margin-top: var(--space-md); }
 .legal .prose { margin-top: var(--space-2xl); }
 .legal .prose h2 { font-family: var(--font-brand); font-weight: 400; font-size: 30px; margin-top: var(--space-2xl); }

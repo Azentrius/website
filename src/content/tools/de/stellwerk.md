@@ -1,7 +1,7 @@
 ---
 slug: stellwerk
 lang: de
-title: Stellwerk – Claude-Code-Freigaben am Tischdisplay erteilen
+title: Stellwerk – Freigaben für Claude Code und Codex am Display
 description: "Lokales Tischdisplay für Claude Code und Codex: alle Sitzungen im Blick, Freigaben mit vollständiger Eingabe, erlauben oder ablehnen am zweiten Bildschirm."
 eyebrow: Ein Stellwerk für deine KI-Agenten
 h1: Freigaben für Claude Code und Codex auf dem zweiten Bildschirm erteilen
