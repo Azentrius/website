@@ -25,15 +25,19 @@ E-Mail: [support@azentrius.com](mailto:support@azentrius.com)
 
 ### Server-Logfiles
 
-Unser Webserver erfasst beim Abruf dieser Webseite automatisch folgende Daten in Server-Logfiles:
+Beim Abruf dieser Webseite und unseres Analytics-Dienstes erfasst unser Webserver automatisch folgende Daten in Zugriffsprotokollen:
 
-- IP-Adresse des anfragenden Rechners (anonymisiert)
+- Gekürzte IP-Adresse des anfragenden Rechners (bei IPv4 wird der letzte Block auf 0 gesetzt, bei IPv6 bleiben nur die ersten 32 Bit erhalten)
 - Datum und Uhrzeit des Zugriffs
 - Angefragte URL
 - HTTP-Statuscode
 - Übertragene Datenmenge
 
-Diese Daten werden ausschließlich zur Sicherstellung des Betriebs und zur Fehleranalyse verarbeitet (Art. 6 Abs. 1 lit. f DSGVO). Die Speicherdauer beträgt maximal 14 Tage.
+Diese Zugriffsprotokolle werden höchstens 14 Tage aufbewahrt.
+
+**Fehler- und Sicherheitsprotokolle:** Zur Fehleranalyse sowie zur Erkennung und Abwehr von Angriffen führen wir zusätzlich Protokolle, die vollständige IP-Adressen, Zeitpunkte und technische Angaben zur Anfrage oder zum Sicherheitsereignis enthalten können. Diese Protokolle werden ebenfalls höchstens 14 Tage aufbewahrt. Die gesonderten Zugriffsprotokolle für die automatische Angriffserkennung mit fail2ban werden höchstens zwei Tage aufbewahrt.
+
+Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht darin, den sicheren Betrieb der Webseite und des Analytics-Dienstes zu gewährleisten, Störungen zu beheben und Angriffe abzuwehren.
 
 ### Cookies
 

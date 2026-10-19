@@ -25,15 +25,19 @@ Email: [support@azentrius.com](mailto:support@azentrius.com)
 
 ### Server log files
 
-When this website is accessed, our web server automatically records the following data in server log files:
+When this website and our analytics service are accessed, our web server automatically records the following data in access logs:
 
-- IP address of the requesting computer (anonymised)
+- Truncated IP address of the requesting computer (the last IPv4 block is set to 0; for IPv6, only the first 32 bits are retained)
 - Date and time of access
 - Requested URL
 - HTTP status code
 - Amount of data transferred
 
-This data is processed solely to keep the service running and to analyse errors (Art. 6 (1) (f) GDPR). It is kept for no more than 14 days.
+These access logs are kept for no more than 14 days.
+
+**Error and security logs:** To analyse errors and detect and prevent attacks, we also keep logs that may contain full IP addresses, timestamps and technical details of the request or security event. These logs are also kept for no more than 14 days. The separate access logs used by fail2ban for automatic attack detection are kept for no more than two days.
+
+The legal basis is Art. 6 (1) (f) GDPR. Our legitimate interest is to keep the website and analytics service secure, resolve faults and prevent attacks.
 
 ### Cookies
 

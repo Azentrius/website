@@ -6,8 +6,9 @@
   visitor identifiers from stored event/session records, explain email enquiries and hosting, and
   give the right to object its own section. Remove blanket claims about third parties and transfers.
   Name Hetzner as the sole email provider, without forwarding to other email providers.
-  Prepare the 24-month analytics retention statement and explain the separate backup retention;
-  publication awaits confirmation of the server changes documented in the README.
+  State the confirmed 24-month analytics retention and separate backup retention. Distinguish
+  truncated IPs in access logs from full IPs in error/security logs (at most 14 days), with a
+  two-day limit for the separate fail2ban access logs.
 - **Image Update Monitor:** describe rollback images and supported database dumps precisely, explain
   that they do not replace a full backup, and qualify the default dump behaviour.
 - **Stellwerk:** name Codex alongside Claude Code in homepage copy and page metadata.

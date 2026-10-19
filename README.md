@@ -78,22 +78,23 @@ email provider. Both privacy pages now name that processing role. The operator a
 chose to retain the existing email/postal contact details without adding another contact channel.
 The legal notices are unchanged by that decision; this does not establish compliance with § 5 DDG.
 
-The privacy pages are prepared for the operator's target configuration: 24 months for Plausible
-event/session records in the active database and anonymised server logs retained for at most 14 days.
-The operator is implementing these settings in a separate session. The draft must not be published
-until that implementation has been confirmed against the actual configuration.
+The operator confirmed the server changes on 2026-10-19. Both privacy pages now reflect the
+implementation recorded in the shared operational notes:
 
-Before publishing this update:
+- Website and analytics access logs use truncated IP addresses and are retained for at most 14 days.
+- Error and security logs can contain full IP addresses and are retained for at most 14 days.
+  The separate access logs used by fail2ban are retained for at most two days.
+- Plausible event/session records expire after 24 months in the active database. Database backups
+  are retained for up to six months, so deleted records can remain in backups for that period.
 
-- Confirm deletion of Plausible event/session records after 24 months and anonymisation/expiry of
-  all logs relevant to website and analytics requests, including access, error and proxy logs.
-- Confirm the final backup retention. The privacy pages separately describe up to six months for
-  database backups, as found by the server audit. Amend this if the implementation changes it;
-  deletion from the active database does not itself delete copies in backups.
-- The newly drafted email deletion criteria must match actual handling.
-- Assess the actual Plausible setup under § 25 TDDDG and the GDPR, including scroll depth and active
-  time measurement. Cookie-free operation alone does not resolve this question. The existing
-  Art. 6 (1) (f) GDPR basis has not been independently approved by this text update.
+This closes the pending confirmation of the logging and retention configuration. The source is the
+operator's confirmation and implementation record; this text update did not rerun the server audit.
+The disclosure concerns the website and analytics service, not every application's logs or data.
+
+The email deletion criteria remain an operational responsibility. The concrete Plausible setup still
+needs assessment under § 25 TDDDG and the GDPR, including scroll depth and active time measurement.
+Cookie-free operation alone does not resolve this question. The existing Art. 6 (1) (f) GDPR basis
+has not been independently approved by this text update.
 
 The review does not change server configuration or publish a release. Its source references are
 [Plausible's data policy](https://plausible.io/data-policy), the
