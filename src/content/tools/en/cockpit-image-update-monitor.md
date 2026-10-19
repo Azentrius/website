@@ -2,11 +2,11 @@
 slug: cockpit-image-update-monitor
 lang: en
 title: "Image Update Monitor: Docker updates with rollback (Cockpit)"
-description: "See configured, running and newest version of every Docker container. Update from Cockpit with a database dump first and rollback at a click."
+description: "See Docker versions and update from Cockpit with a rollback image and dumps for supported databases. Backup limits and recovery explained."
 eyebrow: Cockpit add-on
 h1: Docker updates with a plan and a way back
-lead: "For every running Docker container: what the compose file says, which version actually runs and which is the newest. Updates from Cockpit with a database dump first, a rollback copy of the old image and a rollback at a click."
-summary: Configured, running and newest version of every Docker container, and updates with a dump first and a rollback.
+lead: "For every running Docker container: what the compose file says, which version actually runs and which is the newest. Update from Cockpit with a rollback copy of the old image and dumps for supported databases in the Compose project."
+summary: Configured, running and newest Docker versions, with a rollback image and dumps for supported databases.
 platforms: ["Cockpit", "Docker Compose v2", "Linux with systemd"]
 problemTitle: "latest is not a version."
 problem:
@@ -20,8 +20,8 @@ features:
     text: "Diun reports new images of the same tag; a version radar looks for newer tags every six hours, without pulling images."
   - title: An update with a plan
     text: "Before anything changes: which containers are recreated, which databases are involved, what depends on them and how much space is free."
-  - title: A dump before every update
-    text: "Postgres, MariaDB and MySQL are dumped first. If the dump fails, the update stops before anything changes."
+  - title: Back up supported databases
+    text: "By default, detected PostgreSQL, MariaDB and MySQL databases in the Compose project are dumped before the update. If a dump fails, the update stops. The command line lets you explicitly skip the dump."
   - title: Rollback at a click
     text: "The old image is kept as a rollback copy; one click puts it back."
   - title: Change the version
@@ -50,6 +50,8 @@ faq:
     a: "No. Every update starts with a click, after a plan. Rules for automatic updates are an idea in the roadmap."
   - q: Does a rollback restore my data?
     a: "No. A rollback puts the old image back. If the new version has already migrated the database, only the dump helps, and restoring it is deliberately manual."
+  - q: Does this replace a full backup?
+    a: "No. The dumps back up supported databases in the Compose project. They do not fully back up other files or volumes. Dumps are stored on the same server and should be included in your separate backup."
   - q: Do I need Diun?
     a: "For new images of the same tag, yes; the add-on sets Diun up on request. New version tags are found by the radar with skopeo."
   - q: Does it pull images to check for updates?

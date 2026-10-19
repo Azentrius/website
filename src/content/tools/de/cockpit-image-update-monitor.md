@@ -2,11 +2,11 @@
 slug: cockpit-image-update-monitor
 lang: de
 title: "Image Update Monitor: Docker-Updates mit Rollback (Cockpit)"
-description: "Konfigurierte, laufende und neueste Version jedes Docker-Containers. Updates aus Cockpit mit Datenbank-Dump vorab und Rollback per Klick."
+description: "Docker-Versionen im Blick. Updates aus Cockpit mit Rollback-Image und Dumps für unterstützte Datenbanken. Grenzen und Wiederherstellung erklärt."
 eyebrow: Cockpit-Add-on
 h1: Docker-Updates mit Plan und Rückweg
-lead: "Für jeden laufenden Docker-Container: was die Compose-Datei sagt, welche Version wirklich läuft und welche die neueste ist. Updates aus Cockpit mit Datenbank-Dump vorab, einer Rollback-Kopie des alten Images und Rollback per Klick."
-summary: Konfigurierte, laufende und neueste Version jedes Docker-Containers, und Updates mit Dump vorab und Rollback.
+lead: "Für jeden laufenden Docker-Container: was die Compose-Datei sagt, welche Version wirklich läuft und welche die neueste ist. Updates aus Cockpit mit einer Rollback-Kopie des alten Images und Dumps für unterstützte Datenbanken des Compose-Projekts."
+summary: Konfigurierte, laufende und neueste Docker-Versionen, mit Rollback-Image und Dumps für unterstützte Datenbanken.
 platforms: ["Cockpit", "Docker Compose v2", "Linux mit systemd"]
 problemTitle: "latest ist keine Version."
 problem:
@@ -20,8 +20,8 @@ features:
     text: "Diun meldet neue Images desselben Tags; ein Versionsradar sucht alle sechs Stunden nach neueren Tags, ohne Images zu laden."
   - title: Update mit Plan
     text: "Bevor sich etwas ändert: welche Container neu erstellt werden, welche Datenbanken betroffen sind, was davon abhängt und wie viel Platz frei ist."
-  - title: Dump vor jedem Update
-    text: "Postgres, MariaDB und MySQL werden zuerst gesichert. Scheitert der Dump, stoppt das Update, bevor sich etwas ändert."
+  - title: Unterstützte Datenbanken sichern
+    text: "Standardmäßig werden erkannte PostgreSQL-, MariaDB- und MySQL-Datenbanken des Compose-Projekts vor dem Update gesichert. Scheitert ein Dump, stoppt das Update. Über die Konsole lässt sich der Dump ausdrücklich überspringen."
   - title: Rollback per Klick
     text: "Das alte Image bleibt als Rollback-Kopie erhalten; ein Klick setzt es zurück."
   - title: Version wechseln
@@ -50,6 +50,8 @@ faq:
     a: "Nein. Jedes Update startet per Klick, nach einem Plan. Regeln für automatische Updates stehen als Idee in der Roadmap."
   - q: Stellt ein Rollback meine Daten wieder her?
     a: "Nein. Der Rollback setzt das alte Image zurück. Hat die neue Version die Datenbank schon migriert, hilft nur der Dump, und dessen Wiederherstellung ist bewusst manuell."
+  - q: Ersetzt das ein vollständiges Backup?
+    a: "Nein. Die Dumps sichern unterstützte Datenbanken des Compose-Projekts. Andere Dateien und Volumes werden damit nicht vollständig gesichert. Die Dumps liegen auf demselben Server und sollten in dein separates Backup aufgenommen werden."
   - q: Brauche ich Diun?
     a: "Für neue Images desselben Tags ja; das Add-on richtet Diun auf Wunsch ein. Neue Versions-Tags findet der Radar mit skopeo."
   - q: Lädt es Images, um Updates zu finden?

@@ -68,6 +68,30 @@ gh attestation verify azentrius-website-VERSION.tar.gz --repo Azentrius/website
 
 `npm run pack` makes the same archive locally; the same `dist/` gives the same archive.
 
+### Open facts for the legal text update
+
+The text review of 2026-10-19 corrects the analytics description, email processing, objection rights
+and product claims in both languages. Before publishing this update, resolve the following facts:
+
+- Add the operator's additional rapid contact channel to both legal notices, where § 5 DDG applies.
+  No phone number or contact form has been invented.
+- Confirm the retention period or actual deletion criteria for Plausible event and session records
+  and add them to both privacy pages. Rotation of the daily salt does not delete those records.
+- Verify the existing claims about anonymised server logs and a maximum retention of 14 days against
+  the active log format, rotation, error logs and analytics proxy logs. The repository only refers to
+  the server's `anonymized` format; it does not define it or the global retention settings.
+- Confirm the email provider, any forwarding/other recipients and processing locations, then add
+  them to the recipient section. Public MX records point to Hetzner, but do not establish the full
+  processing chain. The newly drafted email deletion criteria must also match actual handling.
+- Assess the actual Plausible setup under § 25 TDDDG and the GDPR, including scroll depth and active
+  time measurement. Cookie-free operation alone does not resolve this question. The existing
+  Art. 6 (1) (f) GDPR basis has not been independently approved by this text update.
+
+The review does not change server configuration or publish a release. Its source references are
+[Plausible's data policy](https://plausible.io/data-policy), the
+[DSK guidance on digital services](https://www.datenschutzkonferenz-online.de/media/oh/OH_Digitale_Dienste.pdf)
+and [CJEU C-298/07](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=celex%3A62007CJ0298).
+
 ## License
 
 The code is licensed under the [Apache License 2.0](LICENSE). The texts of the website and the

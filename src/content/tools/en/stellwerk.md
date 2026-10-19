@@ -1,7 +1,7 @@
 ---
 slug: stellwerk
 lang: en
-title: "Stellwerk: approve Claude Code permissions on a desk display"
+title: "Stellwerk: approve Claude Code and Codex on a desk display"
 description: "A local desk display for Claude Code and Codex: every session at a glance, permission requests with full input, allow or deny on a second screen."
 eyebrow: A signal box for your AI agents
 h1: Approve Claude Code and Codex requests on a second screen
