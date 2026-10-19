@@ -8,6 +8,8 @@ import type { ImageMetadata } from "astro";
 interface Props {
   image: ImageMetadata;
   dark?: ImageMetadata;
+  /** A genuine narrow-screen capture, used below the site's 760 px layout breakpoint. */
+  mobile?: { image: ImageMetadata; dark?: ImageMetadata };
   alt: string;
   /** Widths to offer; the browser picks by the space the picture gets. */
   widths?: number[];
@@ -16,13 +18,15 @@ interface Props {
   class?: string;
 }
 
-const { image, dark, alt, widths = [640, 960, 1280], sizes = "(max-width: 1168px) 100vw, 1120px", eager = false } = Astro.props;
+const { image, dark, mobile, alt, widths = [640, 960, 1280], sizes = "(max-width: 1168px) 100vw, 1120px", eager = false } = Astro.props;
 const usable = widths.filter((w) => w <= image.width);
 if (usable.length === 0) usable.push(image.width);
 
 async function variants(source: ImageMetadata) {
   const list = [];
-  for (const width of usable) {
+  const sourceWidths = widths.filter((w) => w <= source.width);
+  if (sourceWidths.length === 0) sourceWidths.push(source.width);
+  for (const width of sourceWidths) {
     const result = await getImage({ src: source, width, format: "webp", quality: 82 });
     list.push(`${result.src} ${width}w`);
   }
@@ -31,11 +35,15 @@ async function variants(source: ImageMetadata) {
 
 const lightSet = await variants(image);
 const darkSet = dark ? await variants(dark) : undefined;
+const mobileSet = mobile ? await variants(mobile.image) : undefined;
+const mobileDarkSet = mobile?.dark ? await variants(mobile.dark) : undefined;
 const fallback = await getImage({ src: image, width: usable[usable.length - 1], format: "webp", quality: 82 });
 const height = Math.round((image.height / image.width) * usable[usable.length - 1]);
 ---
 
 <picture class={Astro.props.class}>
+  {mobileDarkSet && <source media="(max-width: 760px) and (prefers-color-scheme: dark)" srcset={mobileDarkSet} sizes={sizes} type="image/webp" />}
+  {mobileSet && <source media="(max-width: 760px)" srcset={mobileSet} sizes={sizes} type="image/webp" />}
   {darkSet && <source media="(prefers-color-scheme: dark)" srcset={darkSet} sizes={sizes} type="image/webp" />}
   <source srcset={lightSet} sizes={sizes} type="image/webp" />
   <img

@@ -5,6 +5,12 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import ToolCard from "./ToolCard.astro";
 import CopyBlock from "./CopyBlock.astro";
+import ProductName from "./ProductName.astro";
+import Shot from "./Shot.astro";
+import updates from "../assets/screenshots/cockpit-image-update-monitor/updates.png";
+import updatesDark from "../assets/screenshots/cockpit-image-update-monitor/updates-dark.png";
+import updatesMobile from "../assets/screenshots/cockpit-image-update-monitor/mobile.png";
+import updatesMobileDark from "../assets/screenshots/cockpit-image-update-monitor/mobile-dark.png";
 import { TOOLS } from "../data/tools";
 import { SITE } from "../data/routes.mjs";
 import type { Lang } from "../i18n/ui";
@@ -15,6 +21,7 @@ interface Props {
 const { lang } = Astro.props;
 const entries = await getCollection("tools", (e) => e.data.lang === lang);
 const bySlug = Object.fromEntries(entries.map((e) => [e.data.slug, e]));
+const previewTool = TOOLS.find((tool) => tool.slug === "cockpit-image-update-monitor")!;
 
 const text = {
   en: {
@@ -31,6 +38,10 @@ const text = {
       ["EU", "Our servers and analytics"],
       ["Transparent", "Dependencies named per project"],
     ],
+    previewTitle: "Keep container updates in sight.",
+    previewText: "See which version is running and which is available. Update your containers directly in Cockpit, with a backup before the update.",
+    previewLink: "View Image Update Monitor",
+    previewAlt: "Image Update Monitor in Cockpit: an excerpt of the container overview with installed and available versions, update status and update actions.",
     projectsEyebrow: "Projects",
     projectsTitle: "Current projects",
     allProjects: "All projects compared",
@@ -65,6 +76,10 @@ const text = {
       ["EU", "Eigene Server und Statistik"],
       ["Transparent", "Abhängigkeiten je Projekt benannt"],
     ],
+    previewTitle: "Container-Updates im Blick.",
+    previewText: "Sieh, welche Version läuft und welche verfügbar ist. Aktualisiere deine Container direkt in Cockpit – mit Sicherung vor dem Update.",
+    previewLink: "Image Update Monitor ansehen",
+    previewAlt: "Image Update Monitor in Cockpit: Ausschnitt der Containerübersicht mit installierten und verfügbaren Versionen, Update-Status und Aktionen zum Aktualisieren.",
     projectsEyebrow: "Projekte",
     projectsTitle: "Aktuelle Projekte",
     allProjects: "Alle Projekte im Vergleich",
@@ -135,6 +150,34 @@ const prefix = lang === "en" ? "" : "/de";
           ))
         }
       </dl>
+    </div>
+  </section>
+
+  <section class="product-preview" aria-labelledby="update-preview-title">
+    <div class="wrap">
+      <figure class="product-preview__figure">
+        <Shot
+          image={updates}
+          dark={updatesDark}
+          mobile={{ image: updatesMobile, dark: updatesMobileDark }}
+          widths={[390, 640, 960, 1280, 1440]}
+          sizes="(max-width: 430px) calc(100vw - 40px), (max-width: 760px) 390px, (max-width: 1168px) calc(100vw - 48px), 1120px"
+          alt={text.previewAlt}
+          class="product-preview__shot"
+        />
+        <figcaption class="product-preview__caption">
+          <div>
+            <p class="product-preview__name"><ProductName name={previewTool.name} /></p>
+            <h2 class="section-title" id="update-preview-title">{text.previewTitle}</h2>
+          </div>
+          <div>
+            <p>{text.previewText}</p>
+            <p class="more-link">
+              <a href={`${prefix}/${previewTool.slug}/`}>{text.previewLink} <span aria-hidden="true">→</span></a>
+            </p>
+          </div>
+        </figcaption>
+      </figure>
     </div>
   </section>
 

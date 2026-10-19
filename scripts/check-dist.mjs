@@ -4,10 +4,11 @@
 // executable script, links only to pages and files that exist, and names nothing unpublished.
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 import { NOINDEX_PATHS, ROUTES, SITE } from "../src/data/routes.mjs";
 
-const DIST = new URL("../dist/", import.meta.url).pathname;
+const DIST = fileURLToPath(new URL("../dist/", import.meta.url));
 const errors = [];
 const fail = (where, message) => errors.push(`${where}: ${message}`);
 
@@ -66,7 +67,7 @@ for (const file of ["404.html", "robots.txt", "sitemap-index.xml", "favicon.svg"
 // 2. Each HTML page.
 const files = walk(DIST);
 const html = files.filter((f) => f.endsWith(".html"));
-const pathOf = (file) => "/" + relative(DIST, file).replace(/index\.html$/, "");
+const pathOf = (file) => "/" + relative(DIST, file).split(sep).join("/").replace(/index\.html$/, "");
 
 for (const file of html) {
   const where = pathOf(file);

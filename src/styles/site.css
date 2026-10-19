@@ -135,6 +135,24 @@ figcaption { margin-top: var(--space-sm); font-size: 14px; color: var(--text-sub
 .fact__label { color: var(--text-subtle); margin: var(--space-sm) 0 0; }
 
 /* ---------- Sections ---------- */
+/* A real product view between the homepage facts and the project list. The crop ends after five
+   desktop rows, or one complete mobile card; the picture element selects the matching capture. */
+.product-preview { padding-bottom: var(--space-section); }
+.product-preview__figure { margin: 0; }
+.product-preview__shot {
+  display: block; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-medium);
+  background: var(--bg-page);
+}
+.product-preview__shot img { width: 100%; aspect-ratio: 1440 / 632; object-fit: cover; object-position: top; }
+.product-preview__caption {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-columns); align-items: center;
+  margin-top: var(--space-xl); font-size: 17px;
+}
+.product-preview__caption > * { min-width: 0; }
+.product-preview__name { font-size: 22px; color: var(--text); }
+.product-preview__caption .more-link { margin-top: var(--space-md); }
+.product-preview__caption a { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; }
+
 .section { padding-block: var(--space-section); border-top: 1px solid var(--line); }
 .section--alt { background: var(--bg-card); }
 .section--alt .az-label { background: var(--tint-neutral); }
@@ -293,12 +311,16 @@ pre code { font-size: inherit; }
   .split, .split--wide { grid-template-columns: 1fr; gap: 40px; }
 }
 @media (max-width: 760px) {
+  .product-preview__shot { max-width: 390px; margin-inline: auto; }
+  .product-preview__shot img { aspect-ratio: 390 / 581; }
+  .product-preview__caption { grid-template-columns: 1fr; gap: var(--space-lg); }
   .card-grid, .gallery, .values, .hero__pair, .hero__split { grid-template-columns: 1fr; }
   .hero__split { gap: var(--space-lg); }
   .hero__split .hero__icon { order: -1; }
   .hero__icon img { width: 96px; height: 96px; }
 }
 @media (max-width: 639px) {
+  .product-preview { padding-bottom: 72px; }
   .wrap { padding-inline: 20px; }
   .hero { padding-top: 56px; padding-bottom: 64px; }
   .section { padding-block: 72px; }

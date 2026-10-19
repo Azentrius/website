@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.3 – 2026-10-19
+
+The homepage shows Image Update Monitor between the facts and the project list.
+
+- **Product preview:** a real screenshot, a short explanation about keeping container updates in
+  sight and a link to the project, in English and German.
+- **Phones and themes:** a narrow-screen capture shows a complete container card on phones; the
+  desktop view shows five rows. Both follow the device's light or dark setting and use optimised WebP.
+- **Build checks on Windows:** resolve the output directory as a filesystem path and normalise
+  directory separators before comparing page routes.
+
 ## 0.1.2 – 2026-10-19
 
 Stellwerk's page explains Codex wherever it explains Claude Code.
