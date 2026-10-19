@@ -55,6 +55,8 @@ Plausible processes the IP address and user agent to determine the approximate l
 
 Plausible stores individual event and session records from which aggregated statistics are calculated. The daily change of the random value does not delete these records.
 
+Event and session records are stored in the active analytics database for 24 months and then deleted. Database backups are kept for up to six months. Records already deleted from the active database may therefore remain in backups until that retention period expires.
+
 The legal basis is Art. 6 (1) (f) GDPR. Our legitimate interest is to understand how our content is used and to improve the website using aggregated statistics. We explain your right to object in the separate “Right to object” section.
 
 ### Fonts
@@ -69,6 +71,8 @@ The pages link to the projects' repositories on GitHub. Your browser connects to
 
 If you send us an email, we process your email address, your name if provided, the message content and any attachments. We use these details to handle your enquiry and reply to you.
 
+Our email mailbox is hosted exclusively by Hetzner Online GmbH. Incoming messages are not forwarded to another email provider.
+
 The legal basis is Art. 6 (1) (f) GDPR. Our legitimate interest is to answer questions about our projects and services. If your enquiry concerns a contract with you or steps taken at your request before entering into a contract, the legal basis is Art. 6 (1) (b) GDPR.
 
 You decide which details to send us. Without a working reply address and the information needed for your enquiry, we may be unable to answer it.
@@ -78,6 +82,8 @@ We delete the correspondence once the enquiry has been fully resolved and the da
 ## 4. Hosting and data recipients
 
 **Hetzner Online GmbH**, Industriestr. 25, 91710 Gunzenhausen, Germany, provides the server infrastructure for this website and our Plausible instance. Hetzner processes data on our behalf as a hosting provider. The servers used for these services are located in the EU.
+
+Hetzner also hosts our email mailbox and processes incoming messages on our behalf.
 
 In this setup, Plausible is software we operate, not an external analytics service. Analytics are processed on our own instance.
 

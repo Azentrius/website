@@ -68,21 +68,29 @@ gh attestation verify azentrius-website-VERSION.tar.gz --repo Azentrius/website
 
 `npm run pack` makes the same archive locally; the same `dist/` gives the same archive.
 
-### Open facts for the legal text update
+### Operational facts for the legal text update
 
 The text review of 2026-10-19 corrects the analytics description, email processing, objection rights
-and product claims in both languages. Before publishing this update, resolve the following facts:
+and product claims in both languages.
 
-- Add the operator's additional rapid contact channel to both legal notices, where § 5 DDG applies.
-  No phone number or contact form has been invented.
-- Confirm the retention period or actual deletion criteria for Plausible event and session records
-  and add them to both privacy pages. Rotation of the daily salt does not delete those records.
-- Verify the existing claims about anonymised server logs and a maximum retention of 14 days against
-  the active log format, rotation, error logs and analytics proxy logs. The repository only refers to
-  the server's `anonymized` format; it does not define it or the global retention settings.
-- Confirm the email provider, any forwarding/other recipients and processing locations, then add
-  them to the recipient section. Public MX records point to Hetzner, but do not establish the full
-  processing chain. The newly drafted email deletion criteria must also match actual handling.
+The operator confirmed that email is hosted exclusively by Hetzner without forwarding to another
+email provider. Both privacy pages now name that processing role. The operator also explicitly
+chose to retain the existing email/postal contact details without adding another contact channel.
+The legal notices are unchanged by that decision; this does not establish compliance with § 5 DDG.
+
+The privacy pages are prepared for the operator's target configuration: 24 months for Plausible
+event/session records in the active database and anonymised server logs retained for at most 14 days.
+The operator is implementing these settings in a separate session. The draft must not be published
+until that implementation has been confirmed against the actual configuration.
+
+Before publishing this update:
+
+- Confirm deletion of Plausible event/session records after 24 months and anonymisation/expiry of
+  all logs relevant to website and analytics requests, including access, error and proxy logs.
+- Confirm the final backup retention. The privacy pages separately describe up to six months for
+  database backups, as found by the server audit. Amend this if the implementation changes it;
+  deletion from the active database does not itself delete copies in backups.
+- The newly drafted email deletion criteria must match actual handling.
 - Assess the actual Plausible setup under § 25 TDDDG and the GDPR, including scroll depth and active
   time measurement. Cookie-free operation alone does not resolve this question. The existing
   Art. 6 (1) (f) GDPR basis has not been independently approved by this text update.

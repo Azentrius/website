@@ -55,6 +55,8 @@ Plausible verarbeitet die IP-Adresse und den User-Agent, um den ungefähren Stan
 
 Plausible speichert einzelne Ereignis- und Sitzungsdatensätze, aus denen zusammengefasste Statistiken berechnet werden. Der tägliche Wechsel des Zufallswerts löscht diese Datensätze nicht.
 
+Die Ereignis- und Sitzungsdatensätze werden für 24 Monate in der aktiven Analytics-Datenbank gespeichert und anschließend gelöscht. Sicherungskopien der Datenbank werden bis zu sechs Monate aufbewahrt. Bereits aus der aktiven Datenbank gelöschte Datensätze können deshalb noch bis zum Ablauf dieser Frist in Sicherungskopien enthalten sein.
+
 Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse ist, die Nutzung unserer Inhalte zu verstehen und das Angebot anhand zusammengefasster Statistiken zu verbessern. Dein Recht auf Widerspruch erläutern wir im gesonderten Abschnitt „Widerspruchsrecht“.
 
 ### Schriftarten
@@ -69,6 +71,8 @@ Die Seiten verlinken auf die Repositorys der Projekte bei GitHub. Erst wenn du e
 
 Wenn du uns eine E-Mail schickst, verarbeiten wir deine E-Mail-Adresse, gegebenenfalls deinen Namen, den Inhalt der Nachricht und mitgesendete Anhänge. Diese Angaben verwenden wir, um deine Anfrage zu bearbeiten und dir zu antworten.
 
+Unser E-Mail-Postfach wird ausschließlich bei der Hetzner Online GmbH betrieben. Eingehende Nachrichten werden nicht an einen anderen E-Mail-Anbieter weitergeleitet.
+
 Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt darin, Fragen zu unseren Projekten und unserem Angebot zu beantworten. Geht es um einen Vertrag mit dir oder um vorvertragliche Maßnahmen auf deine Anfrage, ist Art. 6 Abs. 1 lit. b DSGVO die Rechtsgrundlage.
 
 Du entscheidest, welche Angaben du uns schickst. Ohne eine erreichbare Antwortadresse und die für dein Anliegen nötigen Informationen können wir deine Anfrage gegebenenfalls nicht beantworten.
@@ -78,6 +82,8 @@ Wir löschen die Korrespondenz, sobald die Anfrage abschließend bearbeitet ist 
 ## 4. Hosting und Datenempfänger
 
 Die **Hetzner Online GmbH**, Industriestr. 25, 91710 Gunzenhausen, Deutschland, stellt die Server-Infrastruktur für diese Webseite und unsere Plausible-Instanz bereit. Dabei verarbeitet Hetzner Daten als Hosting-Dienstleister in unserem Auftrag. Die hierfür eingesetzten Server befinden sich in der EU.
+
+Hetzner betreibt außerdem unser E-Mail-Postfach und verarbeitet die dort eingehenden Nachrichten in unserem Auftrag.
 
 Plausible ist in dieser Konfiguration die von uns betriebene Software, kein externer Analytics-Dienst. Die Auswertung findet auf unserer Instanz statt.
 
