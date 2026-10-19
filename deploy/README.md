@@ -1,41 +1,46 @@
 # Deploying azentrius.com
 
-**Status: planned, not set up.** The site on the server is still the previous one. This folder
-describes how a release is meant to get there; setting it up is a change on public-host and comes
-with its own approval.
+azentrius.com runs on public-host with nginx. The server takes every new release of this repository
+by itself, the same way `packages.azentrius.com` takes its packages
+([Azentrius/packages](https://github.com/Azentrius/packages), `server/`).
 
-## How a release gets onto the server
+## How a release gets live
 
-The same way `packages.azentrius.com` takes its packages
-([Azentrius/packages](https://github.com/Azentrius/packages), `server/`):
-
-1. A release is made on GitHub with `.github/workflows/release.yml`: `azentrius-website-VERSION.tar.gz`,
+1. A release is made with `.github/workflows/release.yml`: `azentrius-website-VERSION.tar.gz`,
    `SHA256SUMS` and a signed build provenance.
-2. On public-host, a timer looks for a new release, downloads both files and takes the archive only if
-   - its SHA-256 matches `SHA256SUMS` and the digest GitHub reports for the asset, and
-   - `gh attestation verify` confirms that `.github/workflows/release.yml` of `Azentrius/website` built
-     it.
-3. It unpacks the archive to `/var/www/azentrius.com/releases/VERSION/` and switches the symbolic link
-   `/var/www/azentrius.com/current` to it in one step. nginx serves `current`; nothing reloads.
-4. The last three releases stay. Going back is switching `current` to the previous one.
+2. Every 15 minutes `azentrius-website.timer` runs `azentrius-website sync`. It takes the latest
+   release only if
+   - the SHA-256 of the archive matches `SHA256SUMS` and the digest GitHub reports, and
+   - `gh attestation verify` confirms that `.github/workflows/release.yml` of `Azentrius/website`
+     built it.
+3. It unpacks the archive to `/var/www/azentrius-website/releases/VERSION/` (only files and folders
+   inside the one top folder are accepted) and switches the link `/var/www/azentrius-website/current`
+   to it in one step. nginx serves `current`; nothing reloads.
+4. The newest three releases stay.
 
-The service user can write `/var/www/azentrius.com/releases/` and the link, nothing else, and needs no
-GitHub token: releases and attestations of a public repository are public.
+The service runs as the user `azentrius-website`, may write only `/var/www/azentrius-website` and
+`/var/lib/azentrius-website`, and needs no GitHub token: releases and attestations of a public
+repository are public.
 
-## nginx
+## Commands on the server
 
-`nginx.conf` holds the lines for the existing `server` block of azentrius.com: the root, caching, the
-Content Security Policy and the other headers, the 404 page, and redirects from the previous site's
-`/impressum.html` and `/datenschutz.html`. Certificates, `listen`, `server_name`, the
-Strict-Transport-Security header and the location for certificate renewal stay as they are.
+```sh
+sudo systemctl start azentrius-website      # look for a new release now
+journalctl -u azentrius-website -n 20       # what it did
+azentrius-website list                      # unpacked releases, * is live
+sudo -u azentrius-website azentrius-website use 0.1.0    # go back to an earlier release
+```
 
-Before switching, test the policy with `Content-Security-Policy-Report-Only` for a day, and check
-`nginx -t` before every reload.
+## Files
 
-## The switch, in short
+| File | Installed as |
+| --- | --- |
+| `azentrius-website.py` | `/usr/local/bin/azentrius-website` |
+| `azentrius-website.service`, `azentrius-website.timer` | `/etc/systemd/system/` |
+| `nginx.conf` | `/etc/nginx/sites-available/azentrius.com` |
+| `setup.sh` | sets up or updates all of it: `sudo sh deploy/setup.sh`, with `--nginx` also the site |
 
-1. Backup of `/var/www/azentrius.com` and the nginx site.
-2. Install the sync service and timer, run it once: the first release lands in `releases/`.
-3. Point `root` at `current` and add the lines from `nginx.conf`; `nginx -t`, reload.
-4. Check: every page in both languages, the 404 page, the redirects, the headers, Plausible.
-5. Submit `https://azentrius.com/sitemap-index.xml` in Search Console.
+`nginx.conf` keeps what the site had before: HTTP to HTTPS, www to the bare name, the certificate,
+Strict-Transport-Security and the folder for certificate renewal (`/var/www/azentrius.com`, certbot
+webroot). New are the root, a Content Security Policy without `unsafe-inline`, caching, the 404 page
+and redirects from the previous site's `/impressum.html`, `/datenschutz.html` and `/sitemap.xml`.

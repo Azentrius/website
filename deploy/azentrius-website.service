@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: Apache-2.0
+[Unit]
+Description=azentrius.com: take the latest release of the website
+Documentation=https://github.com/Azentrius/website
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=azentrius-website
+Group=azentrius-website
+ExecStart=/usr/local/bin/azentrius-website sync
+TimeoutStartSec=10min
+
+# Hardening: it only talks to GitHub and writes its releases and its own state.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/azentrius-website /var/www/azentrius-website
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes

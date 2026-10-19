@@ -40,7 +40,7 @@ public yet is named anywhere.
 | `src/styles/site.css` | The site's own styles, from the design system's tokens only. |
 | `vendor/design-system/` | `tokens.css` and `bundle.css` from the Azentrius Design System, with the commit they come from. `npm run design` writes `src/styles/tokens.css` and `src/styles/theme.css` from them. |
 | `public/fonts/` | DM Sans, DM Serif Display and Red Hat Mono, with their licenses. |
-| `deploy/` | How a release gets onto the server, and the nginx lines for it. |
+| `deploy/` | How the server takes each release: the sync service and its units, the nginx site, `setup.sh`. |
 
 ### A new project page
 

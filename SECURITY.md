@@ -26,4 +26,5 @@ analytics.azentrius.com, which we host ourselves.
   appears. That allows a Content Security Policy without `unsafe-inline` (see `deploy/nginx.conf`).
 - Every release is built by `.github/workflows/release.yml` from a commit on `main`, with
   `SHA256SUMS` and a signed build provenance, so anyone can check where a release comes from:
-  `gh attestation verify azentrius-website-VERSION.tar.gz --repo Azentrius/website`.
+  `gh attestation verify azentrius-website-VERSION.tar.gz --repo Azentrius/website`. The server
+  checks both before it serves a release (`deploy/azentrius-website.py`).

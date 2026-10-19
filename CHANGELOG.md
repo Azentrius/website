@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 – not released yet
+## 0.1.0 – 2026-10-19
 
 The new azentrius.com: one page per project, in English and German.
 
@@ -14,5 +14,6 @@ The new azentrius.com: one page per project, in English and German.
 - **Self-contained:** fonts, styles and the one script are files on azentrius.com. No inline scripts or
   styles, so a strict Content Security Policy fits (see `deploy/`). The only other address is
   analytics.azentrius.com, our own Plausible.
-- **Release:** a release is a `tar.gz` of the built site with `SHA256SUMS` and a signed build
-  provenance from this repository's release workflow.
+- **Release and delivery:** a release is a `tar.gz` of the built site with `SHA256SUMS` and a signed
+  build provenance from this repository's release workflow. public-host checks both and switches to a
+  new release by itself (`deploy/`).
