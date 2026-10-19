@@ -19,7 +19,7 @@ features:
   - title: Anfragen mit vollständiger Eingabe
     text: "Ein Shell-Befehl vollständig, eine Dateiänderung mit Pfad und Inhalt, ein MCP-Aufruf mit Server, Werkzeug und Parametern. Erlauben, ablehnen oder der App überlassen."
   - title: Die App arbeitet wie bisher
-    text: "Die Claude-App zeigt gleichzeitig ihre eigene Karte; wer zuerst entscheidet, gilt. Nach 60 Sekunden ohne Entscheidung geht die Anfrage zurück an die App."
+    text: "Die Claude-App zeigt gleichzeitig ihre eigene Karte; wer zuerst entscheidet, gilt. Ohne Entscheidung am Display übernimmt die App nach 60 Sekunden, bei Codex nach 30."
   - title: Was auf dich wartet
     text: "Fragen und Eingaben, auf die die Agenten in der App warten, stehen in einer Liste, mit der Wartezeit."
   - title: Wenn du möchtest
@@ -30,10 +30,10 @@ explainer:
   title: Wie eine Anfrage läuft
   head: ["Schritt", "Was passiert"]
   rows:
-    - ["1", "Claude Code bittet um eine Freigabe und schickt die Anfrage über einen Hook an den Stellwerk-Hub."]
-    - ["2", "Das Display zeigt sie als Karte; die Claude-App zeigt gleichzeitig ihre eigene."]
-    - ["3", "Wer zuerst entscheidet, Display oder App, gilt."]
-    - ["4", "Ohne Entscheidung am Display innerhalb von 60 Sekunden geht die Anfrage zurück an die App. Läuft der Hub nicht, fragt Claude Code einfach in der App."]
+    - ["1", "Claude Code oder Codex bittet um eine Freigabe und schickt die Anfrage über einen Hook an den Stellwerk-Hub."]
+    - ["2", "Das Display zeigt sie als Karte. Die Claude-App zeigt gleichzeitig ihre eigene, die Codex-App erst, wenn Stellwerk geantwortet hat."]
+    - ["3", "Am Display erlaubst du, lehnst ab oder gibst die Anfrage an die App ab. Bei Claude Code kannst du auch in der App antworten; wer zuerst entscheidet, gilt."]
+    - ["4", "Ohne Entscheidung am Display übernimmt die App: bei Claude Code nach 60 Sekunden, bei Codex nach 30. Läuft der Hub nicht, fragen beide einfach in der App."]
 security:
   - "Feste Adresse 127.0.0.1, dazu eine Regel der Windows-Firewall als zweite Schicht."
   - "Jede Hook-Anfrage braucht ein Token; das Display meldet sich an, bevor es etwas bekommt."
@@ -51,7 +51,7 @@ faq:
   - q: Funktioniert es mit Codex?
     a: "Ja, mit der Codex-App, nach stellwerk codex install. Eine Codex-Anfrage wartet 30 Sekunden am Display und geht dann an die App, weil die App ihre eigene Karte erst danach zeigt; „In der App“ gibt sie sofort ab."
   - q: Was passiert, wenn der Hub nicht läuft?
-    a: "Claude Code fragt einfach in der App, ohne Fehlermeldungen."
+    a: "Claude Code und Codex fragen einfach in der App, ohne Fehlermeldungen."
   - q: Kann es Anfragen automatisch erlauben?
     a: "Nein. Es gibt keine Regeln und kein „immer erlauben“."
   - q: Welches Display brauche ich?
@@ -109,4 +109,6 @@ Was bei Codex anders ist als bei Claude Code:
 - Mit „Approve for me“ entscheidet der eigene Prüfer von Codex; Stellwerk hält dann nichts an und zeigt keine Karte.
 - Läuft der Hub nicht, fragt Codex wie gewohnt.
 
-`stellwerk codex uninstall` entfernt genau diese Hooks. Das [README](https://github.com/Azentrius/stellwerk#installation) beschreibt den Rest: Pull Requests, Hardwarewerte und Uptime Kuma.
+`stellwerk codex uninstall` entfernt genau diese Hooks. Alles zu Codex steht im README unter [Codex](https://github.com/Azentrius/stellwerk#codex).
+
+Das [README](https://github.com/Azentrius/stellwerk#installation) beschreibt den Rest: Pull Requests, Hardwarewerte und Uptime Kuma.
