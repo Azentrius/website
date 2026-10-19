@@ -3,7 +3,7 @@
 // One tool page, in either language. Texts from src/content/tools/<lang>/<slug>.md, shared facts
 // from src/data/tools.ts, the version from the latest GitHub release at build time.
 import { render, type CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import ProductName from "./ProductName.astro";
 import Shot from "./Shot.astro";
@@ -65,8 +65,18 @@ const further = [
   tool.docs.roadmap && { label: s.roadmap, href: repoUrl(tool, "ROADMAP.md") },
   tool.docs.security && { label: s.securityPolicy, href: repoUrl(tool, "SECURITY.md") },
 ].filter(Boolean) as { label: string; href: string }[];
-// The product mark above the heading, unless the heading already starts with the product's name.
-const showMark = !d.h1.startsWith(tool.plainName);
+// Picture for shared links: the top of the hero screenshot (light) at 1200 × 630; otherwise the brand card.
+const og = tool.hero
+  ? await getImage({ src: tool.hero.image, width: 1200, height: 630, fit: "cover", position: "top", format: "jpg", quality: 80 })
+  : undefined;
+const ogImage = og
+  ? {
+      src: og.src,
+      width: Number(og.attributes.width),
+      height: Number(og.attributes.height),
+      alt: d.alt[tool.hero!.key] ?? tool.plainName,
+    }
+  : undefined;
 // A project without screenshots shows its app icon next to the hero text.
 const showIcon = !tool.hero && tool.slug === "lautwerk";
 ---
@@ -78,12 +88,13 @@ const showIcon = !tool.hero && tool.slug === "lautwerk";
   description={d.description}
   jsonLd={jsonLd}
   crumbs={crumbs}
+  ogImage={ogImage}
 >
   <section class="hero hero--tool">
     <div class:list={["wrap", showIcon && "hero__split"]}>
       <div class="hero__text">
         <p class="az-eyebrow">{d.eyebrow}</p>
-        {showMark && <p class="tool-mark" aria-hidden="true"><ProductName name={tool.name} /></p>}
+        <p class="tool-mark" aria-hidden="true"><ProductName name={tool.name} /></p>
         <h1 class="tool-title">{d.h1}</h1>
         {d.notice && <p class="notice" role="note">{d.notice}</p>}
         <p class="lead">{d.lead}</p>
@@ -167,7 +178,7 @@ const showIcon = !tool.hero && tool.slug === "lautwerk";
           <h2 class="section-title">{d.explainer.title}</h2>
           {d.explainer.intro && <p class="lead lead--section">{d.explainer.intro}</p>}
           <div class="az-table-wrap">
-            <table class="az-table explainer">
+            <table class="az-table az-table--stack explainer">
               {d.explainer.head && (
                 <thead>
                   <tr>
@@ -179,8 +190,8 @@ const showIcon = !tool.hero && tool.slug === "lautwerk";
               <tbody>
                 {d.explainer.rows.map(([a, b]) => (
                   <tr>
-                    <th scope="row">{a}</th>
-                    <td>{b}</td>
+                    <th scope="row" data-label={d.explainer!.head?.[0]}>{a}</th>
+                    <td data-label={d.explainer!.head?.[1]}>{b}</td>
                   </tr>
                 ))}
               </tbody>

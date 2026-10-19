@@ -4,7 +4,7 @@ lang: en
 title: "Stellwerk: approve Claude Code permissions on a desk display"
 description: "A local desk display for Claude Code and Codex: every session at a glance, permission requests with full input, allow or deny on a second screen."
 eyebrow: A signal box for your AI agents
-h1: Approve Claude Code permission requests on a second screen
+h1: Approve Claude Code and Codex requests on a second screen
 lead: "Every running Claude Code and Codex session on a wide second screen. Permission requests show their complete input and can be allowed or denied right there; the app keeps working, and whoever decides first counts."
 summary: A local desk display for Claude Code and Codex sessions and their permission requests, for a wide second screen.
 platforms: ["Windows 10 & 11", "Claude Code", "Codex"]
@@ -43,10 +43,13 @@ requirements:
   - "Windows 10 or 11"
   - "Node.js 24 (LTS)"
   - "Claude Code: the Claude desktop app or the command line"
+  - "Codex, if you like: the Codex app"
   - "Microsoft Edge or another Chromium browser for the display"
 faq:
   - q: Does it work with the Claude desktop app?
     a: "Yes, with Claude Code in the desktop app and on the command line. The app shows its own card, and the first decision counts."
+  - q: Does it work with Codex?
+    a: "Yes, with the Codex app, after stellwerk codex install. A Codex request waits on the display for 30 seconds and then goes to the app, because the app shows its own card only after that; “In the app” hands it over at once."
   - q: What happens if the hub is not running?
     a: "Claude Code simply asks in the app, without error messages."
   - q: Can it allow requests automatically?
@@ -61,7 +64,7 @@ compare: "Other tools bring approvals to the phone or by push, some with automat
 alt:
   display: "The Stellwerk display at 1920×720: sessions with how full their context is, the requests waiting next to them, Uptime Kuma monitors, clock, hub, hardware and plan usage"
 primaryAction:
-  label: Download
+  label: Download Stellwerk
   href: "https://github.com/Azentrius/stellwerk/releases/latest"
 notes:
   - "Stellwerk is an independent project and not affiliated with Anthropic or OpenAI. Claude Code and Codex name what Stellwerk works with."
@@ -90,4 +93,20 @@ npm link
 4. Once, as administrator: `stellwerk install` adds the firewall rule.
 5. Open the display on the second screen. To start everything with Windows: `stellwerk autostart install`.
 
-The [README](https://github.com/Azentrius/stellwerk#installation) covers Codex, pull requests, hardware values and Uptime Kuma.
+### Connect Codex (optional)
+
+Stellwerk shows the sessions of the Codex app too, marked "Codex", and answers their approvals on the display:
+
+```powershell
+stellwerk codex install
+```
+
+It shows what it adds to Codex' hooks and asks before writing. Restart the Codex app and allow the new hooks there: the hook symbol in its input field opens **Review hooks**. Codex runs hooks only after that.
+
+How Codex differs from Claude Code:
+
+- The Codex app shows its own approval card only after Stellwerk has answered. So a Codex request waits on the display for 30 seconds (adjustable from 10 to 35) and then goes to the app; **In the app** hands it over at once.
+- With "Approve for me", Codex' own reviewer decides; Stellwerk then holds nothing and shows no card.
+- If the hub is not running, Codex asks as usual.
+
+`stellwerk codex uninstall` removes exactly these hooks. The [README](https://github.com/Azentrius/stellwerk#installation) covers the rest: pull requests, hardware values and Uptime Kuma.

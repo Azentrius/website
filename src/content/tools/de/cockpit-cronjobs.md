@@ -4,7 +4,7 @@ lang: de
 title: Cron Jobs für Cockpit – Cronjobs und systemd-Timer verwalten
 description: "Cockpit-Seite für cron: alle Cronjobs und systemd-Timer an einem Ort, sichere Crontab-Änderungen, Ergebnis jedes Laufs, Umwandeln in systemd-Timer."
 eyebrow: Cockpit-Add-on
-h1: Cron Jobs für Cockpit
+h1: Cronjobs und systemd-Timer in Cockpit verwalten
 lead: "Alles, was auf einem Server geplant ist, auf einer Cockpit-Seite: sichere Änderungen an der Crontab, das Ergebnis jedes Laufs, Jetzt ausführen und Umwandeln in systemd-Timer."
 summary: Alle Cronjobs und systemd-Timer auf einer Cockpit-Seite, mit sicheren Änderungen, Laufhistorie und Umwandeln in Timer.
 platforms: ["Cockpit", "Debian & Ubuntu", "Fedora & RHEL", "openSUSE"]
@@ -56,7 +56,7 @@ alt:
   convert: "Umwandeln eines Cronjobs in einen systemd-Timer: Name, mit systemd-analyze geprüfter Zeitplan und die neuen Units"
   backups: "Backups der Crontab von root, jeweils mit den Zeilen, die das Wiederherstellen entfernen und hinzufügen würde"
 primaryAction:
-  label: Installieren
+  label: Cron Jobs installieren
   href: "#install"
 updated: 2026-10-19
 ---

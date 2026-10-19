@@ -4,7 +4,7 @@ lang: en
 title: Cron Jobs for Cockpit – manage cron and systemd timers
 description: "Open-source Cockpit page for cron: every job and systemd timer in one place, safe crontab edits, run history, run now, convert to systemd timers."
 eyebrow: Cockpit add-on
-h1: Cron Jobs for Cockpit
+h1: Manage cron jobs and systemd timers in Cockpit
 lead: "Everything scheduled on a server, on one Cockpit page: safe crontab edits, the result of every run, run now, and conversion to systemd timers."
 summary: Every cron job and systemd timer on one Cockpit page, with safe edits, run history and conversion to timers.
 platforms: ["Cockpit", "Debian & Ubuntu", "Fedora & RHEL", "openSUSE"]
@@ -56,7 +56,7 @@ alt:
   convert: "Converting a cron job to a systemd timer: name, schedule checked with systemd-analyze and the units it creates"
   backups: "Backups of the root crontab, each with the lines restoring it would remove and add"
 primaryAction:
-  label: Install
+  label: Install Cron Jobs
   href: "#install"
 updated: 2026-10-19
 ---

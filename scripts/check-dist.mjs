@@ -82,6 +82,12 @@ for (const file of html) {
   if (!desc) fail(where, "no meta description");
   else if (decode(desc[1]).length > 155) fail(where, `description has ${decode(desc[1]).length} characters (max 155)`);
 
+  // A picture for shared links that exists on this site.
+  const og = head.match(/<meta property="og:image" content="([^"]*)"/)?.[1];
+  if (!og) fail(where, "no og:image");
+  else if (!og.startsWith(SITE + "/")) fail(where, `og:image is not on ${SITE}: ${og}`);
+  else if (!existsSync(fileFor(new URL(og).pathname))) fail(where, `og:image missing: ${og}`);
+
   // Language, one h1.
   const lang = src.match(/<html lang="([a-z]+)"/)?.[1];
   if (!lang) fail(where, "no lang attribute on <html>");

@@ -66,7 +66,7 @@ alt:
   version-dialog: "Version eines Containers wechseln: der gewählte Tag, die Zeile, die sich in der Compose-Datei ändert, und der Plan"
   backups: "Backups und Dumps: Regeln für das Aufräumen und die Update-Historie mit Rollback-Knöpfen"
 primaryAction:
-  label: Installieren
+  label: Image Update Monitor installieren
   href: "#install"
 updated: 2026-10-19
 ---

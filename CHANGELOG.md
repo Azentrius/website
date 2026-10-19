@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.1 – 2026-10-19
+
+Statements that hold for every project, tables that read on a phone, and the review's other findings.
+
+- **What Azentrius claims:** the start page no longer says "100 % self-hosted", "no SaaS dependencies"
+  or "GDPR compliant" for everything; Lautwerk, for one, talks to Claude or OpenAI. It now says what
+  holds for every project (open source under Apache-2.0, our own servers in the EU) and that each
+  project page names what it needs and talks to. The project overview says the same.
+- **Tables on phones:** below 640 px the comparison table and the explanation tables stack into
+  blocks with a label for each value, as the design system asks; long row headers wrap.
+- **Product names:** every project page shows its styled name above the heading again; Cron Jobs and
+  Azentrius Theme get descriptive headings instead of repeating the name.
+- **Buttons:** verb and object ("Install Cron Jobs", "Open repository", "Copy code").
+- **Stellwerk and Codex:** the heading, the requirements, a question and an installation section with
+  how Codex differs (30 seconds on the display, then the app).
+- **Shared links:** every page has a preview picture: the top of the project's screenshot, or the
+  Azentrius card.
+
 ## 0.1.0 – 2026-10-19
 
 The new azentrius.com: one page per project, in English and German.

@@ -23,7 +23,7 @@ const text = {
     description:
       "All Azentrius projects: Cockpit add-ons for cron and Docker updates, a desk display for Claude Code, an Android voice app and a Home Assistant theme.",
     h1: "Projects",
-    lead: "Everything Azentrius makes is open source under Apache-2.0, public on GitHub and runs without anyone else's control plane.",
+    lead: "Everything Azentrius makes is open source under Apache-2.0 and public on GitHub. Each page says what a project needs and what it talks to.",
     groups: {
       cockpit: "Cockpit add-ons",
       desktop: "Desktop",
@@ -45,7 +45,7 @@ const text = {
     description:
       "Alle Projekte von Azentrius: Cockpit-Add-ons für Cron und Docker-Updates, ein Tischdisplay für Claude Code, eine Sprach-App und ein Home-Assistant-Theme.",
     h1: "Projekte",
-    lead: "Alles, was Azentrius baut, ist Open Source unter Apache-2.0, öffentlich auf GitHub und läuft ohne fremde Kontrollinstanz.",
+    lead: "Alles, was Azentrius baut, ist Open Source unter Apache-2.0 und öffentlich auf GitHub. Jede Seite sagt, was ein Projekt braucht und womit es spricht.",
     groups: {
       cockpit: "Cockpit-Add-ons",
       desktop: "Desktop",
@@ -102,7 +102,7 @@ const crumbs = [
     <div class="wrap">
       <h2 class="section-title">{text.compareTitle}</h2>
       <div class="az-table-wrap compare">
-        <table class="az-table">
+        <table class="az-table az-table--stack compare-table">
           <thead>
             <tr>{text.head.map((h) => <th scope="col">{h}</th>)}</tr>
           </thead>
@@ -113,13 +113,13 @@ const crumbs = [
                   <th scope="row">
                     <a href={`${prefix}/${tool.slug}/`}>{tool.plainName}</a>
                   </th>
-                  <td>{bySlug[tool.slug].data.platforms.join(", ")}</td>
-                  <td>
+                  <td data-label={text.head[1]}>{bySlug[tool.slug].data.platforms.join(", ")}</td>
+                  <td data-label={text.head[2]}>
                     {tool.status === "stable" ? s.statusStable : s.statusPrototype}
                     {release[tool.slug] && ` · v${release[tool.slug]!.version}`}
                   </td>
-                  <td>{text.install[tool.slug]}</td>
-                  <td>
+                  <td data-label={text.head[3]}>{text.install[tool.slug]}</td>
+                  <td data-label={text.head[4]}>
                     <a href={repoUrl(tool, "LICENSE")}>{tool.license}</a>
                   </td>
                 </tr>

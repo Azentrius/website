@@ -169,9 +169,30 @@ figcaption { margin-top: var(--space-sm); font-size: 14px; color: var(--text-sub
 
 .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); margin-top: var(--space-2xl); align-items: start; }
 
-.explainer th[scope="row"] { font-weight: 600; white-space: nowrap; }
+/* Row headers are content, not column labels: body size and wrapping (the bundle's th is 12 px, nowrap). */
+.az-table tbody th[scope="row"] { font-size: 15px; font-weight: 600; white-space: normal; }
+.explainer th[scope="row"] { min-width: 8ch; }
+.az-table tbody tr:last-child th { border-block-end: 0; }
 .az-table-wrap { overflow-x: auto; }
 .explainer { width: 100%; font-size: 16px; }
+
+/* Tables on phones (design system: stacked below 640 px). The bundle stacks the data cells as
+   "label: value"; the row header becomes the title of its block. Explanation tables have long
+   values, so there the label stands above the value instead of beside it. */
+@media (max-width: 640px) {
+  .az-table--stack tbody th[scope="row"] {
+    display: block; padding: var(--space-xs) 0; border: 0; font-size: 15px; font-weight: 600; text-align: start;
+    white-space: normal; overflow-wrap: anywhere;
+  }
+  .az-table--stack td { overflow-wrap: anywhere; }
+  .explainer.az-table--stack th[scope="row"],
+  .explainer.az-table--stack td { display: block; text-align: start; padding: var(--space-xs) 0; }
+  .explainer.az-table--stack th[scope="row"]::before,
+  .explainer.az-table--stack td::before {
+    content: attr(data-label); display: block; color: var(--text-subtle); font-size: 12px; font-weight: 600;
+  }
+  .explainer.az-table--stack tr { padding: var(--space-md) 0; }
+}
 
 /* Installation text from Markdown */
 .prose { min-width: 0; }
@@ -185,7 +206,7 @@ figcaption { margin-top: var(--space-sm); font-size: 14px; color: var(--text-sub
 .copy { position: relative; margin-top: var(--space-md); }
 .copy__label { font-size: 14px; font-weight: 600; color: var(--text-subtle); margin-bottom: var(--space-sm); }
 pre {
-  margin: 0; padding: var(--space-md) var(--space-lg); padding-right: 104px;
+  margin: 0; padding: var(--space-md) var(--space-lg); padding-right: 152px;
   background: var(--bg-page); color: var(--text);
   border: 1px solid var(--line); border-radius: var(--radius-small);
   overflow-x: auto; font-family: var(--font-mono); font-size: 14px; line-height: 1.6;

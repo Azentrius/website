@@ -4,8 +4,8 @@ lang: de
 title: Azentrius Theme – Home-Assistant-Theme in Tinte und Gold
 description: "Open-Source-Theme für Home Assistant in Tinte, Papier und Gold, mit DM Sans. Hell und dunkel folgen deinem Profil. Installation mit HACS oder von Hand."
 eyebrow: Theme für Home Assistant
-h1: Azentrius Theme für Home Assistant
-lead: "Tinte, Papier und Gold für Home Assistant, gesetzt in DM Sans. Heller und dunkler Modus folgen deinem Profil; Gerätefarben, Größen und Symbole bleiben, wie Home Assistant sie zeichnet."
+h1: Ein Home-Assistant-Theme in Tinte, Papier und Gold
+lead: "Gesetzt in DM Sans, hell oder dunkel, wie dein Profil es sagt. Gerätefarben, Größen und Symbole bleiben, wie Home Assistant sie zeichnet."
 summary: Ein Theme für Home Assistant in Tinte, Papier und Gold, gesetzt in DM Sans, für hellen und dunklen Modus.
 platforms: ["Home Assistant 2026.10+", "HACS"]
 problemTitle: Ein geprüfter Look statt Dutzender Variablen.
@@ -52,7 +52,7 @@ alt:
   light-dialog: "Dialog für ein neues Dashboard im hellen Modus, mit Textfeldern und Schaltern"
   dark-dialog: "Dialog für ein neues Dashboard im dunklen Modus, mit Textfeldern und Schaltern"
 primaryAction:
-  label: Mit HACS installieren
+  label: Theme installieren
   href: "#install"
 notes:
   - "Azentrius Theme ist ein unabhängiges Projekt und nicht mit Home Assistant oder der Open Home Foundation verbunden."

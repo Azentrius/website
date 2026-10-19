@@ -66,7 +66,7 @@ alt:
   version-dialog: "Changing the version of a container: the chosen tag, the line that changes in the compose file and the plan"
   backups: "Backups and dumps: cleanup rules and the update history with rollback buttons"
 primaryAction:
-  label: Install
+  label: Install Image Update Monitor
   href: "#install"
 updated: 2026-10-19
 ---

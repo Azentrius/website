@@ -4,7 +4,7 @@ lang: de
 title: Stellwerk – Claude-Code-Freigaben am Tischdisplay erteilen
 description: "Lokales Tischdisplay für Claude Code und Codex: alle Sitzungen im Blick, Freigaben mit vollständiger Eingabe, erlauben oder ablehnen am zweiten Bildschirm."
 eyebrow: Ein Stellwerk für deine KI-Agenten
-h1: Claude-Code-Freigaben auf dem zweiten Bildschirm erteilen
+h1: Freigaben für Claude Code und Codex auf dem zweiten Bildschirm erteilen
 lead: "Jede laufende Sitzung von Claude Code und Codex auf einem breiten zweiten Bildschirm. Freigabeanfragen zeigen ihre vollständige Eingabe und lassen sich direkt dort erlauben oder ablehnen; die App arbeitet weiter, und wer zuerst entscheidet, gilt."
 summary: Ein lokales Tischdisplay für Sitzungen von Claude Code und Codex und ihre Freigabeanfragen, für einen breiten zweiten Bildschirm.
 platforms: ["Windows 10 & 11", "Claude Code", "Codex"]
@@ -43,10 +43,13 @@ requirements:
   - "Windows 10 oder 11"
   - "Node.js 24 (LTS)"
   - "Claude Code: die Claude-Desktop-App oder die Kommandozeile"
+  - "Codex, wenn du möchtest: die Codex-App"
   - "Microsoft Edge oder ein anderer Chromium-Browser für das Display"
 faq:
   - q: Funktioniert es mit der Claude-Desktop-App?
     a: "Ja, mit Claude Code in der Desktop-App und auf der Kommandozeile. Die App zeigt ihre eigene Karte, und die erste Entscheidung gilt."
+  - q: Funktioniert es mit Codex?
+    a: "Ja, mit der Codex-App, nach stellwerk codex install. Eine Codex-Anfrage wartet 30 Sekunden am Display und geht dann an die App, weil die App ihre eigene Karte erst danach zeigt; „In der App“ gibt sie sofort ab."
   - q: Was passiert, wenn der Hub nicht läuft?
     a: "Claude Code fragt einfach in der App, ohne Fehlermeldungen."
   - q: Kann es Anfragen automatisch erlauben?
@@ -61,7 +64,7 @@ compare: "Andere Werkzeuge bringen Freigaben aufs Handy oder per Push, manche mi
 alt:
   display: "Das Stellwerk-Display in 1920×720: Sitzungen mit Füllstand ihres Kontexts, daneben die wartenden Anfragen, Uptime-Kuma-Monitore, Uhr, Hub, Hardware und Verbrauch der Pläne"
 primaryAction:
-  label: Herunterladen
+  label: Stellwerk herunterladen
   href: "https://github.com/Azentrius/stellwerk/releases/latest"
 notes:
   - "Stellwerk ist ein unabhängiges Projekt und nicht mit Anthropic oder OpenAI verbunden. Claude Code und Codex benennen, womit Stellwerk zusammenarbeitet."
@@ -90,4 +93,20 @@ npm link
 4. Einmal als Administrator: `stellwerk install` legt die Firewall-Regel an.
 5. Öffne das Display auf dem zweiten Bildschirm. Damit alles mit Windows startet: `stellwerk autostart install`.
 
-Das [README](https://github.com/Azentrius/stellwerk#installation) beschreibt Codex, Pull Requests, Hardwarewerte und Uptime Kuma.
+### Codex verbinden (optional)
+
+Stellwerk zeigt auch die Sitzungen der Codex-App, markiert mit „Codex“, und beantwortet ihre Freigaben am Display:
+
+```powershell
+stellwerk codex install
+```
+
+Es zeigt, was es zu den Hooks von Codex hinzufügt, und fragt vor dem Schreiben. Starte die Codex-App neu und erlaube dort die neuen Hooks: Das Hook-Symbol im Eingabefeld öffnet **Review hooks**. Erst danach führt Codex sie aus.
+
+Was bei Codex anders ist als bei Claude Code:
+
+- Die Codex-App zeigt ihre eigene Freigabekarte erst, wenn Stellwerk geantwortet hat. Darum wartet eine Codex-Anfrage 30 Sekunden am Display (einstellbar von 10 bis 35) und geht dann an die App; **In der App** gibt sie sofort ab.
+- Mit „Approve for me“ entscheidet der eigene Prüfer von Codex; Stellwerk hält dann nichts an und zeigt keine Karte.
+- Läuft der Hub nicht, fragt Codex wie gewohnt.
+
+`stellwerk codex uninstall` entfernt genau diese Hooks. Das [README](https://github.com/Azentrius/stellwerk#installation) beschreibt den Rest: Pull Requests, Hardwarewerte und Uptime Kuma.

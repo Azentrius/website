@@ -6,9 +6,9 @@ Not licensed under the Apache License; all rights reserved:
 
 - The texts of the website (src/content/, and the texts in src/components/ and src/i18n/), including
   the legal notice and the privacy policy.
-- The Azentrius word mark "Azentrius." and sign (public/favicon.svg), and the signs of the apps
-  (src/assets/icons/). The Apache License grants no rights to trademarks, names or signs
-  (section 6), including those shown in the screenshots.
+- The Azentrius word mark "Azentrius." and sign (public/favicon.svg), the card for shared links
+  (public/og/), and the signs of the apps (src/assets/icons/). The Apache License grants no rights
+  to trademarks, names or signs (section 6), including those shown in the screenshots.
 
 This project includes third-party material under its own license:
 
