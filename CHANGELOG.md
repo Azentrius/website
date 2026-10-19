@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2 – 2026-10-19
+
+Stellwerk's page explains Codex wherever it explains Claude Code.
+
+- **How a request goes:** the steps, the feature about the app and the question about a hub that is
+  not running now cover Codex too. The Codex app shows its card only once Stellwerk has answered, so
+  the app takes over after 30 seconds instead of 60.
+- **README:** the Codex installation links straight to the README's Codex section.
+
 ## 0.1.1 – 2026-10-19
 
 Statements that hold for every project, tables that read on a phone, and the review's other findings.
