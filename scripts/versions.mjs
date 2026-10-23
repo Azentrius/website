@@ -8,8 +8,12 @@ const FILE = new URL("../src/data/versions.json", import.meta.url);
 const REPOS = {
   "cockpit-cronjobs": "Azentrius/cockpit-cronjobs",
   "cockpit-image-update-monitor": "Azentrius/cockpit-image-update-monitor",
+  "cockpit-update-gaps": "Azentrius/cockpit-update-gaps",
+  "cockpit-security-monitor": "Azentrius/cockpit-security-monitor",
+  "cockpit-status-board": "Azentrius/cockpit-status-board",
   stellwerk: "Azentrius/stellwerk",
   lautwerk: "Azentrius/lautwerk",
+  sharewerk: "Azentrius/sharewerk",
   "home-assistant-theme": "Azentrius/home-assistant-theme",
 };
 

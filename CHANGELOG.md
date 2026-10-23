@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.5 – 2026-10-23
+
+Pages for Update Gaps, Security Monitor, Status Board and Sharewerk, and the versions of today.
+
+- **Four new project pages** in English and German, each with what it does, security, installation
+  and questions: Update Gaps and Security Monitor for Cockpit with screenshots, Status Board for
+  Cockpit without (its screenshots show real host names), and Sharewerk, which shows its app sign
+  like Lautwerk and says what Meta's terms of use and the rights of a post's author mean for it.
+  The projects page, the start page and the links between project pages include them.
+- **Versions:** Cron Jobs 2.10.2, Image Update Monitor 0.25.1, Stellwerk 0.6.4, Update Gaps 0.7.1,
+  Security Monitor 0.3.1, Status Board 0.2.3 and Sharewerk 0.1.1. The build reads them from
+  GitHub, so the live site shows what was current when its release was built; the README now says
+  that new versions go live with the next website release.
+- **Cron Jobs:** the page title names the product without "for Cockpit", like Image Update
+  Monitor's.
+- **Design system:** tokens and component styles from commit 5f4b256; the tokens differ only in a
+  comment, the components add image previews.
+- **README:** every place a new project page needs.
+- **Repository:** a Python cache file under `deploy/` is gone, and `__pycache__/` is ignored.
+
 ## 0.1.4 – 2026-10-19
 
 - **Privacy texts in German and English:** describe scroll depth and active time, distinguish daily

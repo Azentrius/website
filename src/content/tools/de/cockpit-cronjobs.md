@@ -1,7 +1,7 @@
 ---
 slug: cockpit-cronjobs
 lang: de
-title: Cron Jobs für Cockpit – Cronjobs und systemd-Timer verwalten
+title: "Cron Jobs: Cronjobs und systemd-Timer in Cockpit verwalten"
 description: "Cockpit-Seite für cron: alle Cronjobs und systemd-Timer an einem Ort, sichere Crontab-Änderungen, Ergebnis jedes Laufs, Umwandeln in systemd-Timer."
 eyebrow: Cockpit-Add-on
 h1: Cronjobs und systemd-Timer in Cockpit verwalten
@@ -58,7 +58,7 @@ alt:
 primaryAction:
   label: Cron Jobs installieren
   href: "#install"
-updated: 2026-10-19
+updated: 2026-10-23
 ---
 
 ### Aus der Azentrius-Paketquelle

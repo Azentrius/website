@@ -11,7 +11,6 @@ import { tool as findTool, TOOLS, repoUrl } from "../data/tools";
 import { t } from "../i18n/ui";
 import versions from "../data/versions.json";
 import { SITE } from "../data/routes.mjs";
-import lautwerkIcon from "../assets/icons/lautwerk.svg";
 
 interface Props {
   entry: CollectionEntry<"tools">;
@@ -78,7 +77,8 @@ const ogImage = og
     }
   : undefined;
 // A project without screenshots shows its app icon next to the hero text.
-const showIcon = !tool.hero && tool.slug === "lautwerk";
+const icon = tool.hero ? undefined : tool.icon;
+const showIcon = Boolean(icon);
 ---
 
 <Base
@@ -112,9 +112,9 @@ const showIcon = !tool.hero && tool.slug === "lautwerk";
         </ul>
       </div>
       {
-        showIcon && (
+        icon && (
           <div class="hero__icon">
-            <Image src={lautwerkIcon} alt={d.alt.icon ?? ""} width={200} height={200} loading="eager" />
+            <Image src={icon} alt={d.alt.icon ?? ""} width={200} height={200} loading="eager" />
           </div>
         )
       }
