@@ -7,8 +7,12 @@ export const SITE = "https://azentrius.com";
 export const TOOL_SLUGS = [
   "cockpit-cronjobs",
   "cockpit-image-update-monitor",
+  "cockpit-update-gaps",
+  "cockpit-security-monitor",
+  "cockpit-status-board",
   "stellwerk",
   "lautwerk",
+  "sharewerk",
   "home-assistant-theme",
 ];
 

@@ -1,4 +1,4 @@
-/* Azentrius — Komponenten
+/* Azentrius: Komponenten
    Reine CSS-Klassen ohne Build-Schritt. Alle Farben, Abstände und Radien kommen aus tokens.css.
    In Cockpit-Addons wird dieselbe Datei geladen; das Dunkel-Thema schaltet dort .pf-v6-theme-dark
    (siehe Abschnitt „Cockpit-Addons“). */
@@ -358,6 +358,33 @@ code, .az-mono { font-family: var(--az-font-code); font-size: 0.875rem; }
 .az-empty__title { margin: 0; font-family: var(--az-font-head); font-size: 20px; line-height: 1.3; font-weight: 600; text-wrap: balance; }
 .az-empty__body { margin: 0; max-width: 46ch; color: var(--text-subtle); }
 .az-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); margin-block-start: var(--space-md); }
+
+/* ---------- Bildvorschau ---------- */
+/* Vorschau der Bilder, die eine App erzeugt oder weitergibt. Nur zum Ansehen, nicht bedienbar. */
+.az-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: var(--space-md) var(--space-sm);
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.az-thumb { display: flex; flex-direction: column; gap: var(--space-xs); min-width: 0; }
+/* Hochformat 4:5, nie beschnitten; was nicht 4:5 ist, steht auf bg-control. */
+.az-thumb__image {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  box-sizing: border-box;
+  background: var(--bg-control);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+}
+/* Beschriftung unter dem Bild, nie darauf: auf einem fremden Bild ist 4,5:1 nicht zu garantieren. */
+.az-thumb__caption { font-size: 12px; line-height: 1.5; color: var(--text-subtle); overflow-wrap: anywhere; }
+.az-thumb__number { color: var(--text); font-weight: 600; }
 
 /* ---------- Signatur ---------- */
 .az-signature {

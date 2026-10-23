@@ -1,7 +1,7 @@
 ---
 slug: cockpit-cronjobs
 lang: en
-title: Cron Jobs for Cockpit – manage cron and systemd timers
+title: "Cron Jobs: manage cron and systemd timers in Cockpit"
 description: "Open-source Cockpit page for cron: every job and systemd timer in one place, safe crontab edits, run history, run now, convert to systemd timers."
 eyebrow: Cockpit add-on
 h1: Manage cron jobs and systemd timers in Cockpit
@@ -58,7 +58,7 @@ alt:
 primaryAction:
   label: Install Cron Jobs
   href: "#install"
-updated: 2026-10-19
+updated: 2026-10-23
 ---
 
 ### From the Azentrius package repository

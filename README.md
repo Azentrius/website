@@ -32,7 +32,7 @@ public yet is named anywhere.
 | --- | --- |
 | `src/content/tools/{en,de}/<slug>.md` | A project page: frontmatter with every section's text, the installation in Markdown below it. The schema is in `src/content.config.ts`. |
 | `src/content/legal/{en,de}/` | Legal notice and privacy policy. The German versions are binding. |
-| `src/data/tools.ts` | The projects: names, category, status, license, screenshots. |
+| `src/data/tools.ts` | The projects: names, category, status, license, screenshots or app sign. |
 | `src/data/routes.mjs` | Every page pair by key; canonical, `hreflang`, language switch and sitemap use it. |
 | `src/data/versions.json` | The latest release of each project; `npm run versions` updates it from GitHub. |
 | `src/i18n/ui.ts` | Labels of the interface in both languages. |
@@ -44,16 +44,34 @@ public yet is named anywhere.
 
 ### A new project page
 
-1. Add the project to `TOOL_SLUGS` in `src/data/routes.mjs`, to the `slug` list in
-   `src/content.config.ts` and to `TOOLS` in `src/data/tools.ts`, with its screenshots under
-   `src/assets/screenshots/<slug>/`.
-2. Write `src/content/tools/en/<slug>.md` and `src/content/tools/de/<slug>.md`.
-3. `npm run build`.
+1. `src/data/routes.mjs`: the slug in `TOOL_SLUGS`.
+2. `src/content.config.ts`: the slug in the `slug` list.
+3. `src/data/tools.ts`: the slug in `ToolSlug` and an entry in `TOOLS`, where its place sets the order on
+   the site. `name` sets the product name as the design system does: `dot: true` for the gold dot
+   ("Cron Jobs."), `suffix` for the part in italics ("Image Update *Monitor*"). Screenshots go under
+   `src/assets/screenshots/<slug>/`; a project without any gets its app sign from `src/assets/icons/`
+   as `icon`. A new `category` also needs `CATEGORY_ORDER` and the group titles in
+   `src/components/ProjectsPage.astro`.
+4. `src/data/related.ts`: an entry in `PAIRS`, and the slug in the entries of the projects that
+   belong with it.
+5. `scripts/versions.mjs`: the repository in `REPOS`; `npm run versions` then adds it to
+   `src/data/versions.json`.
+6. `src/components/ProjectsPage.astro`: how it is installed (`install`, in both languages). Check
+   whether the descriptions of the projects page and of the start page (`HomePage.astro`) and the
+   start page's lead still name what there is.
+7. Write `src/content/tools/en/<slug>.md` and `src/content/tools/de/<slug>.md`: a title of 10 to 60
+   and a description of 50 to 155 characters, an `alt` text for every picture key (`icon` for the
+   app sign).
+8. `npm run build`. `scripts/check-dist.mjs` then checks the page pair, the lengths and the links.
 
 ### A new version of a project
 
 Nothing to do in the texts: `npm run build` reads the latest releases from GitHub. Commit the updated
 `src/data/versions.json` with the next change, so a build without network shows the same.
+
+The live site shows the versions its release was built with: it changes only with a new release of
+the website (see Releases). A project's new release therefore reaches azentrius.com with the next
+website release, not before.
 
 ## Releases
 

@@ -15,17 +15,32 @@ import iumDialog from "../assets/screenshots/cockpit-image-update-monitor/update
 import iumDone from "../assets/screenshots/cockpit-image-update-monitor/update-done.png";
 import iumBackups from "../assets/screenshots/cockpit-image-update-monitor/backups.png";
 import iumVersion from "../assets/screenshots/cockpit-image-update-monitor/version-dialog.png";
+import gapsOverview from "../assets/screenshots/cockpit-update-gaps/overview.png";
+import gapsOverviewDark from "../assets/screenshots/cockpit-update-gaps/overview-dark.png";
+import gapsUpkeep from "../assets/screenshots/cockpit-update-gaps/upkeep.png";
+import gapsAccepted from "../assets/screenshots/cockpit-update-gaps/accepted.png";
+import secExposure from "../assets/screenshots/cockpit-security-monitor/exposure.png";
+import secExposureDark from "../assets/screenshots/cockpit-security-monitor/exposure-dark.png";
+import secSsh from "../assets/screenshots/cockpit-security-monitor/ssh.png";
+import secContainers from "../assets/screenshots/cockpit-security-monitor/containers.png";
+import secMarkDialog from "../assets/screenshots/cockpit-security-monitor/mark-dialog.png";
 import stellwerkDisplay from "../assets/screenshots/stellwerk/display.png";
 import themeLight from "../assets/screenshots/home-assistant-theme/light.png";
 import themeDark from "../assets/screenshots/home-assistant-theme/dark.png";
 import themeLightDialog from "../assets/screenshots/home-assistant-theme/light-dialog.png";
 import themeDarkDialog from "../assets/screenshots/home-assistant-theme/dark-dialog.png";
+import lautwerkIcon from "../assets/icons/lautwerk.svg";
+import sharewerkIcon from "../assets/icons/sharewerk.svg";
 
 export type ToolSlug =
   | "cockpit-cronjobs"
   | "cockpit-image-update-monitor"
+  | "cockpit-update-gaps"
+  | "cockpit-security-monitor"
+  | "cockpit-status-board"
   | "stellwerk"
   | "lautwerk"
+  | "sharewerk"
   | "home-assistant-theme";
 
 export type Category = "cockpit" | "desktop" | "android" | "home-assistant";
@@ -51,6 +66,8 @@ export interface Tool {
   hero?: Shot;
   /** Light and dark side by side instead of one picture that follows the device. */
   heroPair?: boolean;
+  /** The app's sign, shown next to the hero text of a project without screenshots (alt text: key "icon"). */
+  icon?: ImageMetadata;
   gallery: Shot[];
   docs: { changelog: boolean; roadmap: boolean; security: boolean };
 }
@@ -93,6 +110,52 @@ export const TOOLS: Tool[] = [
     docs: { changelog: true, roadmap: true, security: true },
   },
   {
+    slug: "cockpit-update-gaps",
+    repo: "Azentrius/cockpit-update-gaps",
+    name: { base: "Update Gaps", dot: true },
+    plainName: "Update Gaps",
+    category: "cockpit",
+    status: "stable",
+    license: "Apache-2.0",
+    package: "cockpit-update-gaps",
+    hero: { key: "overview", image: gapsOverview, dark: gapsOverviewDark },
+    gallery: [
+      { key: "upkeep", image: gapsUpkeep },
+      { key: "accepted", image: gapsAccepted },
+    ],
+    docs: { changelog: true, roadmap: false, security: true },
+  },
+  {
+    slug: "cockpit-security-monitor",
+    repo: "Azentrius/cockpit-security-monitor",
+    name: { base: "Security", suffix: "Monitor" },
+    plainName: "Security Monitor",
+    category: "cockpit",
+    status: "stable",
+    license: "Apache-2.0",
+    package: "cockpit-security-monitor",
+    hero: { key: "exposure", image: secExposure, dark: secExposureDark },
+    gallery: [
+      { key: "ssh", image: secSsh },
+      { key: "containers", image: secContainers },
+      { key: "mark-dialog", image: secMarkDialog },
+    ],
+    docs: { changelog: true, roadmap: false, security: true },
+  },
+  {
+    slug: "cockpit-status-board",
+    repo: "Azentrius/cockpit-status-board",
+    name: { base: "Status Board", dot: true },
+    plainName: "Status Board",
+    category: "cockpit",
+    status: "stable",
+    license: "Apache-2.0",
+    package: "cockpit-status-board",
+    // No screenshots: the ones in the repository show real host names.
+    gallery: [],
+    docs: { changelog: true, roadmap: false, security: true },
+  },
+  {
     slug: "stellwerk",
     repo: "Azentrius/stellwerk",
     name: { base: "Stellwerk", dot: true },
@@ -112,8 +175,21 @@ export const TOOLS: Tool[] = [
     category: "android",
     status: "prototype",
     license: "Apache-2.0",
+    icon: lautwerkIcon,
     gallery: [],
     docs: { changelog: true, roadmap: true, security: true },
+  },
+  {
+    slug: "sharewerk",
+    repo: "Azentrius/sharewerk",
+    name: { base: "Sharewerk", dot: true },
+    plainName: "Sharewerk",
+    category: "android",
+    status: "prototype",
+    license: "Apache-2.0",
+    icon: sharewerkIcon,
+    gallery: [],
+    docs: { changelog: true, roadmap: false, security: true },
   },
   {
     slug: "home-assistant-theme",
