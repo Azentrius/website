@@ -61,7 +61,9 @@ faq:
   - q: Does it keep any data?
     a: "No, on no host. Only the browser keeps the switch “Only what needs attention”."
 compare: "Status Board is not a monitoring system: it keeps no data, sends no alerts and loads only while the page is open. It reaches the hosts over the host switcher's own SSH connections; they need only cockpit-bridge, a login by key and the add-ons."
-alt: {}
+alt:
+  board: "Status Board on a bastion with three hosts behind it: the coverage above, then one row per host with a tile per add-on, its state, key figure and the age of its data"
+  board-details: "Only what needs attention, with the entries of Security Monitor folded out below its row"
 primaryAction:
   label: Install Status Board
   href: "#install"

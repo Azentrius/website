@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.7 – 2026-10-25
+
+Screenshots for Status Board, and the theme's new version.
+
+- **Status Board:** the page shows the board, light and dark, and only what needs attention with
+  the entries of an add-on folded out. The pictures are the README screenshots of Status Board,
+  now taken with neutral host and user names; until now the page had none, because the old ones
+  showed real host names.
+- **Versions:** Azentrius Theme 1.0.6.
+
 ## 0.1.6 – 2026-10-25
 
 A page for Host Settings, and the versions of today.
