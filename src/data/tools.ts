@@ -24,6 +24,9 @@ import secExposureDark from "../assets/screenshots/cockpit-security-monitor/expo
 import secSsh from "../assets/screenshots/cockpit-security-monitor/ssh.png";
 import secContainers from "../assets/screenshots/cockpit-security-monitor/containers.png";
 import secMarkDialog from "../assets/screenshots/cockpit-security-monitor/mark-dialog.png";
+import boardOverview from "../assets/screenshots/cockpit-status-board/board.png";
+import boardOverviewDark from "../assets/screenshots/cockpit-status-board/board-dark.png";
+import boardDetails from "../assets/screenshots/cockpit-status-board/board-details.png";
 import hostOverview from "../assets/screenshots/cockpit-host-settings/overview.png";
 import hostOverviewDark from "../assets/screenshots/cockpit-host-settings/overview-dark.png";
 import hostNtfy from "../assets/screenshots/cockpit-host-settings/ntfy.png";
@@ -157,8 +160,8 @@ export const TOOLS: Tool[] = [
     status: "stable",
     license: "Apache-2.0",
     package: "cockpit-status-board",
-    // No screenshots: the ones in the repository show real host names.
-    gallery: [],
+    hero: { key: "board", image: boardOverview, dark: boardOverviewDark },
+    gallery: [{ key: "board-details", image: boardDetails }],
     docs: { changelog: true, roadmap: false, security: true },
   },
   {

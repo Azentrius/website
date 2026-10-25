@@ -61,7 +61,9 @@ faq:
   - q: Speichert es Daten?
     a: "Nein, auf keinem Host. Nur der Browser merkt sich den Schalter „Nur Auffälliges“."
 compare: "Status Board ist kein Monitoring-System: Es speichert keine Daten, verschickt keine Warnungen und lädt nur, solange die Seite offen ist. Es erreicht die Hosts über die eigenen SSH-Verbindungen des Host-Umschalters; sie brauchen nur cockpit-bridge, eine Anmeldung per Schlüssel und die Add-ons."
-alt: {}
+alt:
+  board: "Status Board auf einer Bastion mit drei Hosts dahinter: oben die Abdeckung, darunter je Host eine Zeile mit einer Kachel je Add-on, ihrem Zustand, ihrer Kennzahl und dem Alter ihrer Daten"
+  board-details: "Nur Auffälliges, mit den Einträgen des Security Monitor unter seiner Zeile aufgeklappt"
 primaryAction:
   label: Status Board installieren
   href: "#install"
