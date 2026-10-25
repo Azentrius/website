@@ -11,6 +11,7 @@ const REPOS = {
   "cockpit-update-gaps": "Azentrius/cockpit-update-gaps",
   "cockpit-security-monitor": "Azentrius/cockpit-security-monitor",
   "cockpit-status-board": "Azentrius/cockpit-status-board",
+  "cockpit-host-settings": "Azentrius/cockpit-host-settings",
   stellwerk: "Azentrius/stellwerk",
   lautwerk: "Azentrius/lautwerk",
   sharewerk: "Azentrius/sharewerk",

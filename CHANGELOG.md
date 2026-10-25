@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.6 – 2026-10-25
+
+A page for Host Settings, and the versions of today.
+
+- **New project page** in English and German for Host Settings, the Cockpit add-on that sends a
+  message through ntfy, e-mail or both when an Azentrius add-on on a server needs attention: what
+  it does, when a message comes, security, installation and questions, with screenshots from its
+  repository, which show only made-up example data. The page describes what 0.1.0 does; one
+  question says what comes with the release after it. The projects page, the start page and the
+  links between project pages include it; Status Board and Cron Jobs point to it.
+- **Versions:** Host Settings 0.1.0, Image Update Monitor 0.26.0 and Stellwerk 0.7.0.
+
 ## 0.1.5 – 2026-10-23
 
 Pages for Update Gaps, Security Monitor, Status Board and Sharewerk, and the versions of today.

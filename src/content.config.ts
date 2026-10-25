@@ -25,6 +25,7 @@ const tools = defineCollection({
       "cockpit-update-gaps",
       "cockpit-security-monitor",
       "cockpit-status-board",
+      "cockpit-host-settings",
       "stellwerk",
       "lautwerk",
       "sharewerk",
