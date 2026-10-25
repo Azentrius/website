@@ -3,11 +3,12 @@
 import type { CollectionEntry } from "astro:content";
 
 const PAIRS: Record<string, string[]> = {
-  "cockpit-cronjobs": ["cockpit-image-update-monitor", "cockpit-status-board"],
+  "cockpit-cronjobs": ["cockpit-image-update-monitor", "cockpit-status-board", "cockpit-host-settings"],
   "cockpit-image-update-monitor": ["cockpit-update-gaps", "cockpit-cronjobs"],
   "cockpit-update-gaps": ["cockpit-security-monitor", "cockpit-image-update-monitor", "cockpit-status-board"],
   "cockpit-security-monitor": ["cockpit-update-gaps", "cockpit-image-update-monitor", "cockpit-status-board"],
-  "cockpit-status-board": ["cockpit-update-gaps", "cockpit-security-monitor", "cockpit-cronjobs"],
+  "cockpit-status-board": ["cockpit-host-settings", "cockpit-update-gaps", "cockpit-security-monitor"],
+  "cockpit-host-settings": ["cockpit-status-board", "cockpit-security-monitor", "cockpit-update-gaps"],
   stellwerk: ["lautwerk", "cockpit-cronjobs"],
   lautwerk: ["stellwerk", "sharewerk"],
   sharewerk: ["lautwerk", "stellwerk"],

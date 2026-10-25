@@ -24,6 +24,11 @@ import secExposureDark from "../assets/screenshots/cockpit-security-monitor/expo
 import secSsh from "../assets/screenshots/cockpit-security-monitor/ssh.png";
 import secContainers from "../assets/screenshots/cockpit-security-monitor/containers.png";
 import secMarkDialog from "../assets/screenshots/cockpit-security-monitor/mark-dialog.png";
+import hostOverview from "../assets/screenshots/cockpit-host-settings/overview.png";
+import hostOverviewDark from "../assets/screenshots/cockpit-host-settings/overview-dark.png";
+import hostNtfy from "../assets/screenshots/cockpit-host-settings/ntfy.png";
+import hostCheck from "../assets/screenshots/cockpit-host-settings/check-dialog.png";
+import hostAddons from "../assets/screenshots/cockpit-host-settings/addons.png";
 import stellwerkDisplay from "../assets/screenshots/stellwerk/display.png";
 import themeLight from "../assets/screenshots/home-assistant-theme/light.png";
 import themeDark from "../assets/screenshots/home-assistant-theme/dark.png";
@@ -38,6 +43,7 @@ export type ToolSlug =
   | "cockpit-update-gaps"
   | "cockpit-security-monitor"
   | "cockpit-status-board"
+  | "cockpit-host-settings"
   | "stellwerk"
   | "lautwerk"
   | "sharewerk"
@@ -153,6 +159,23 @@ export const TOOLS: Tool[] = [
     package: "cockpit-status-board",
     // No screenshots: the ones in the repository show real host names.
     gallery: [],
+    docs: { changelog: true, roadmap: false, security: true },
+  },
+  {
+    slug: "cockpit-host-settings",
+    repo: "Azentrius/cockpit-host-settings",
+    name: { base: "Host Settings", dot: true },
+    plainName: "Host Settings",
+    category: "cockpit",
+    status: "stable",
+    license: "Apache-2.0",
+    package: "cockpit-host-settings",
+    hero: { key: "overview", image: hostOverview, dark: hostOverviewDark },
+    gallery: [
+      { key: "ntfy", image: hostNtfy },
+      { key: "check-dialog", image: hostCheck },
+      { key: "addons", image: hostAddons },
+    ],
     docs: { changelog: true, roadmap: false, security: true },
   },
   {

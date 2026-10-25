@@ -4,8 +4,8 @@
     "date": "2026-10-23"
   },
   "cockpit-image-update-monitor": {
-    "version": "0.25.1",
-    "date": "2026-10-23"
+    "version": "0.26.0",
+    "date": "2026-10-25"
   },
   "cockpit-update-gaps": {
     "version": "0.7.1",
@@ -19,9 +19,13 @@
     "version": "0.2.3",
     "date": "2026-10-22"
   },
-  "stellwerk": {
-    "version": "0.6.4",
+  "cockpit-host-settings": {
+    "version": "0.1.0",
     "date": "2026-10-23"
+  },
+  "stellwerk": {
+    "version": "0.7.0",
+    "date": "2026-10-25"
   },
   "lautwerk": null,
   "sharewerk": {
