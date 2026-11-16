@@ -18,7 +18,7 @@
     "pack": "sh scripts/pack.sh"
   },
   "dependencies": {
-    "@astrojs/sitemap": "3.7.4",
-    "astro": "7.4.4"
+    "@astrojs/sitemap": "3.7.5",
+    "astro": "7.4.12"
   }
 }
